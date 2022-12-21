@@ -1,10 +1,6 @@
 import React, { useState } from "react";
-
-interface IdeaType {
-  title: string;
-  description: string;
-  createdAt: string;
-}
+import { IdeaType } from "../types/Idea";
+import IdeaTile from "./IdeaTile";
 
 const Ideas = () => {
   const ideas = JSON.parse(localStorage.getItem("ideas") || "[]");
@@ -26,11 +22,7 @@ const Ideas = () => {
       </button>
       <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
         {sortIdeas(sortValue).map((idea: IdeaType) => (
-          <div style={{ width: 300, border: "1px solid black", margin: 20 }} key={idea.createdAt}>
-            <h2>{idea.title}</h2>
-            <p>{idea.description}</p>
-            <p>Created at: {idea.createdAt}</p>
-          </div>
+          <IdeaTile idea={idea} key={idea.createdAt} />
         ))}
       </div>
     </div>
