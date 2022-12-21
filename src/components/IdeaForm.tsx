@@ -12,6 +12,7 @@ const IdeaForm = () => {
     const idea = {
       title: title,
       description: description,
+      createdAt: new Date().toLocaleString(),
     };
 
     ideas.push(idea);
