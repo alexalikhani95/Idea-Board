@@ -1,15 +1,21 @@
 import React, { useState } from "react";
 
+interface IdeaType {
+  title: string;
+  description: string;
+  createdAt: string;
+}
+
 const Ideas = () => {
   const ideas = JSON.parse(localStorage.getItem("ideas") || "[]");
   const [sortValue, setSortValue] = useState("created");
 
   const sortIdeas = (sort: string) => {
     if (sort === "alphabet") {
-      return ideas.sort((a: any, b: any) => a.title.localeCompare(b.title));
+      return ideas.sort((a: IdeaType, b: IdeaType) => a.title.localeCompare(b.title));
     }
     if (sort === "created") {
-      return ideas.sort((a: any, b: any) => a.createdAt.localeCompare(b.createdAt));
+      return ideas.sort((a: IdeaType, b: IdeaType) => a.createdAt.localeCompare(b.createdAt));
     }
   };
 
@@ -19,8 +25,8 @@ const Ideas = () => {
         {sortValue === "created" ? "Sort Ideas alphbetically" : "Sort ideas by creation date"}
       </button>
       <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
-        {sortIdeas(sortValue).map((idea: any) => (
-          <div style={{ width: 300, border: "1px solid black", margin: 20 }}>
+        {sortIdeas(sortValue).map((idea: IdeaType) => (
+          <div style={{ width: 300, border: "1px solid black", margin: 20 }} key={idea.createdAt}>
             <h2>{idea.title}</h2>
             <p>{idea.description}</p>
             <p>Created at: {idea.createdAt}</p>
