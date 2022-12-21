@@ -6,10 +6,10 @@ import Ideas from "./components/Ideas";
 function App() {
   return (
     <div className="App">
-      <h1>App</h1>
-      {/* <IdeaForm /> */}
-      <IdeaForm />
-      <Ideas />
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <IdeaForm />
+        <Ideas />
+      </div>
     </div>
   );
 }

@@ -20,9 +20,10 @@ const IdeaForm = () => {
   };
 
   return (
-    <div>
+    <div style={{ display: "flex", flexDirection: "column", border: "1px solid grey", width: 200 }}>
+      <h2>Add an idea</h2>
       <form onSubmit={handleSubmit}>
-        <div>
+        <div style={{ marginBottom: "20px" }}>
           <label>Title</label>
           <input type="text" name="title" onChange={(e) => setTitle(e.target.value)} />
         </div>
