@@ -50,7 +50,7 @@ const IdeaForm = () => {
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>
-        <p>Description Characters remaining: {140 - description.length} / 140 (Max 140)</p>
+        <p>Description Characters remaining: {140 - description.length} / 140</p>
         <button type="submit">Submit</button>
       </form>
     </div>
