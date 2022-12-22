@@ -35,6 +35,8 @@ const IdeaTile = ({ idea }: IdeaTileProps) => {
     // updating the title of the selected idea
     selectedIdea.title = updatedTitle;
 
+    selectedIdea.updatedAt = new Date().toLocaleString();
+
     // Adding the selected idea with updated title back to its place in the array
     ideasList[index] = selectedIdea;
 
@@ -55,6 +57,8 @@ const IdeaTile = ({ idea }: IdeaTileProps) => {
     let selectedIdea = { ...ideasList[index] };
 
     selectedIdea.description = updatedDescription;
+
+    selectedIdea.updatedAt = new Date().toLocaleString();
 
     ideasList[index] = selectedIdea;
 
@@ -104,6 +108,7 @@ const IdeaTile = ({ idea }: IdeaTileProps) => {
         </div>
 
         <p>Created at: {idea.createdAt}</p>
+        {idea.updatedAt && <p>Updated at: {idea.updatedAt}</p>}
         <button onClick={(e) => handleDelete(e)}>Delete</button>
       </div>
     </div>

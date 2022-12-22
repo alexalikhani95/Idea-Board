@@ -3,6 +3,7 @@ export interface IdeaType {
   title: string;
   description: string;
   createdAt: string;
+  updatedAt?: string;
 }
 
 export interface IdeaContextType {
