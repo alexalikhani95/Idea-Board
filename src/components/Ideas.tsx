@@ -8,10 +8,10 @@ const Ideas = () => {
   const storageSort = JSON.parse(localStorage.getItem("sortValue") || "");
 
   const sortIdeas = () => {
-    if (storageSort === "alphabet") {
+    if (sort === "alphabet") {
       return ideas.sort((a: IdeaType, b: IdeaType) => a.title.localeCompare(b.title));
     }
-    if (storageSort === "created") {
+    if (sort === "created") {
       return ideas.sort((a: IdeaType, b: IdeaType) => a.createdAt.localeCompare(b.createdAt));
     }
   };
@@ -31,7 +31,7 @@ const Ideas = () => {
   return (
     <div style={{ marginTop: 20 }}>
       <button onClick={() => handleSort()}>
-        {storageSort === "created" ? "Sort Ideas alphbetically" : "Sort ideas by creation date"}
+        {sort === "created" ? "Sort Ideas alphbetically" : "Sort ideas by creation date"}
       </button>
       <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
         {sortedIdeas.map((idea: IdeaType) => (
