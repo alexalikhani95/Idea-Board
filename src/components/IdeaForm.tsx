@@ -6,11 +6,16 @@ const IdeaForm = () => {
   const titleInputRef = useRef<HTMLInputElement | null>(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [blankField, setBlankField] = useState(false);
 
   const { setIdeas } = useContext(IdeaContext) as IdeaContextType;
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
+
+    if (title === "" || description === "") {
+      return setBlankField(true);
+    }
     const ideas = JSON.parse(localStorage.getItem("ideas") || "[]");
 
     const idea = {
@@ -25,6 +30,10 @@ const IdeaForm = () => {
     ideas.push(idea);
 
     localStorage.setItem("ideas", JSON.stringify(ideas));
+
+    if (blankField) {
+      setBlankField(false);
+    }
   };
 
   useEffect(() => {
@@ -40,6 +49,9 @@ const IdeaForm = () => {
       data-testid="idea-form"
     >
       <h2>Add an idea</h2>
+      {blankField && (
+        <p style={{ color: "red" }}>Please fill in both title and description fields</p>
+      )}
       <form onSubmit={handleSubmit}>
         <div style={{ marginBottom: "20px" }}>
           <label>Title</label>
