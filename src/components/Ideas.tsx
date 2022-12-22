@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { IdeaType } from "../types/Idea";
+import { IdeaContext } from "../context/IdeaContext";
+import { IdeaType, IdeaContextType } from "../types/Idea";
 import IdeaTile from "./IdeaTile";
 
 const Ideas = () => {
-  const ideas = JSON.parse(localStorage.getItem("ideas") || "[]");
   const [sortValue, setSortValue] = useState("created");
+  const { ideas } = React.useContext(IdeaContext) as IdeaContextType;
 
   const sortIdeas = (sort: string) => {
     if (sort === "alphabet") {
@@ -15,13 +16,20 @@ const Ideas = () => {
     }
   };
 
+  const sortedIdeas = sortIdeas(sortValue);
+
+  if (!sortedIdeas) {
+    // To avoid the error ''sortedIdeas' is possibly 'undefined'when mapping sortedIdeas
+    return <p>Loading...</p>;
+  }
+
   return (
     <div style={{ marginTop: 20 }}>
       <button onClick={() => setSortValue(sortValue === "created" ? "alphabet" : "created")}>
         {sortValue === "created" ? "Sort Ideas alphbetically" : "Sort ideas by creation date"}
       </button>
       <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
-        {sortIdeas(sortValue).map((idea: IdeaType) => (
+        {sortedIdeas.map((idea: IdeaType) => (
           <IdeaTile idea={idea} key={idea.createdAt} />
         ))}
       </div>
