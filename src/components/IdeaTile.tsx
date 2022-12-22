@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { IdeaContext } from "../context/IdeaContext";
 import { IdeaContextType, IdeaType } from "../types/Idea";
 
@@ -12,6 +12,7 @@ const IdeaTile = ({ idea }: IdeaTileProps) => {
   const [updatedDescription, setUpdatedDescription] = useState("");
   const [editingTitle, setEditingTitle] = useState(false);
   const [editingDescription, setEditingDescription] = useState(false);
+  const [showUpdatedText, setShowUpdatedText] = useState(false);
 
   const handleDelete = (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -42,35 +43,38 @@ const IdeaTile = ({ idea }: IdeaTileProps) => {
     localStorage.setItem("ideas", JSON.stringify(ideasList));
 
     setEditingTitle(false);
+    setShowUpdatedText(true);
   };
 
   const handleUpdateDescription = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    //making a copy of the global state array of ideas
     let ideasList = [...ideas];
 
-    // get index in ideas array of the selected idea
     const index = ideasList.map((i) => i.description).indexOf(idea.description);
 
-    // making a copy of the selected idea
     let selectedIdea = { ...ideasList[index] };
 
-    // updating the description of the selected idea
     selectedIdea.description = updatedDescription;
 
-    // Adding the selected idea with updated title back to its place in the array
     ideasList[index] = selectedIdea;
 
-    // Set the global ideas array to the new mutated array with the updated target idea
     setIdeas(ideasList);
     localStorage.setItem("ideas", JSON.stringify(ideasList));
 
-    setEditingTitle(false);
+    setEditingDescription(false);
+    setShowUpdatedText(true);
   };
+
+  useEffect(() => {
+    setTimeout(function () {
+      setShowUpdatedText(false);
+    }, 3000);
+  }, [showUpdatedText]);
 
   return (
     <div>
       <div style={{ width: 300, border: "1px solid black", margin: 20 }}>
+        {showUpdatedText && <h3 style={{ color: "blue" }}>Idea updated!</h3>}
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <h2>{idea.title}</h2>{" "}
           <button
