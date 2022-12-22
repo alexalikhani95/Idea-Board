@@ -1,8 +1,8 @@
 import React from "react";
 import { fireEvent, getByTestId, render, screen } from "@testing-library/react";
-import App from "./App";
-import IdeaProvider from "./context/IdeaContext";
-import IdeaTile from "./components/IdeaTile";
+import App from "../App";
+import IdeaProvider from "../context/IdeaContext";
+import IdeaTile from "../components/IdeaTile";
 
 test("Idea Title is present in the document with its title text when there is an idea", async () => {
   render(
