@@ -76,7 +76,7 @@ const IdeaTile = ({ idea }: IdeaTileProps) => {
   }, [showUpdatedText]);
 
   return (
-    <div>
+    <div data-testid="idea-tile">
       <div style={{ width: 300, border: "1px solid black", margin: 20 }}>
         {showUpdatedText && <h3 style={{ color: "blue" }}>Idea updated!</h3>}
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
