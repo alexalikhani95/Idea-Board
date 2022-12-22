@@ -5,7 +5,6 @@ import IdeaTile from "./IdeaTile";
 
 const Ideas = () => {
   const { ideas, sort, setSort } = React.useContext(IdeaContext) as IdeaContextType;
-  const storageSort = JSON.parse(localStorage.getItem("sortValue") || "");
 
   const sortIdeas = () => {
     if (sort === "alphabet") {
