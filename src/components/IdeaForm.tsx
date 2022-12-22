@@ -7,7 +7,7 @@ const IdeaForm = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
-  const { addIdea } = useContext(IdeaContext) as IdeaContextType;
+  const { setIdeas } = useContext(IdeaContext) as IdeaContextType;
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -20,7 +20,7 @@ const IdeaForm = () => {
       createdAt: new Date().toLocaleString(),
     };
 
-    addIdea(idea);
+    setIdeas([...ideas, idea]);
 
     ideas.push(idea);
 

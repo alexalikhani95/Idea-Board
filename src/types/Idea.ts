@@ -7,6 +7,5 @@ export interface IdeaType {
 
 export interface IdeaContextType {
   ideas: IdeaType[];
-  addIdea: (idea: IdeaType) => void;
   setIdeas: React.Dispatch<React.SetStateAction<IdeaType[]>>;
 }
