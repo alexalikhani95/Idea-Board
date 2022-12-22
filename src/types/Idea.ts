@@ -8,4 +8,6 @@ export interface IdeaType {
 export interface IdeaContextType {
   ideas: IdeaType[];
   setIdeas: React.Dispatch<React.SetStateAction<IdeaType[]>>;
+  sort: string;
+  setSort: React.Dispatch<React.SetStateAction<string>>;
 }
