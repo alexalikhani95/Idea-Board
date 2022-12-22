@@ -9,6 +9,7 @@ interface IdeaTileProps {
 const IdeaTile = ({ idea }: IdeaTileProps) => {
   const { ideas, setIdeas } = useContext(IdeaContext) as IdeaContextType;
   const [updatedTitle, setUpdatedTitle] = useState("");
+  const [editingTitle, setEditingTitle] = useState(false);
 
   const handleDelete = (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -37,14 +38,26 @@ const IdeaTile = ({ idea }: IdeaTileProps) => {
     // Set the global ideas array to the new mutated array with the updated target idea
     setIdeas(ideasList);
     localStorage.setItem("ideas", JSON.stringify(ideasList));
+
+    setEditingTitle(false);
   };
 
   return (
     <div>
       <div style={{ width: 300, border: "1px solid black", margin: 20 }}>
-        <h2>{idea.title}</h2>{" "}
-        <input type="text" onChange={(e) => setUpdatedTitle(e.target.value)} />
-        <button onClick={(e) => handleUpdateTitle(e)}>Update title</button>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <h2>{idea.title}</h2>{" "}
+          <button
+            style={{ display: !editingTitle ? "block" : "none", width: 100 }}
+            onClick={() => setEditingTitle(true)}
+          >
+            Edit title
+          </button>
+          <div style={{ display: editingTitle ? "flex" : "none" }}>
+            <input type="text" onChange={(e) => setUpdatedTitle(e.target.value)} />
+            <button onClick={(e) => handleUpdateTitle(e)}>Update title</button>
+          </div>
+        </div>
         <p>{idea.description}</p>
         <p>Created at: {idea.createdAt}</p>
         <button onClick={(e) => handleDelete(e)}>Delete</button>
