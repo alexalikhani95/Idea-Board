@@ -10,12 +10,9 @@ const IdeaProvider = ({ children }: any) => {
   useEffect(() => {
     const storedIdeas = JSON.parse(localStorage.getItem("ideas") || "[]");
     setIdeas(storedIdeas);
+    const storedSortValue = JSON.parse(localStorage.getItem("sortValue") || "");
+    setSort(storedSortValue);
   }, []);
-
-  // useEffect(() => {
-  //   const storedSortValue = JSON.parse(localStorage.getItem("sortValue") || "");
-  //   setSort(storedSortValue);
-  // }, []);
 
   return (
     <IdeaContext.Provider value={{ ideas, setIdeas, sort, setSort }}>
