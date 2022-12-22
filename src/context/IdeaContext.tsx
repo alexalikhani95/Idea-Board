@@ -8,10 +8,14 @@ const IdeaProvider = ({ children }: any) => {
   const [sort, setSort] = useState("created");
 
   useEffect(() => {
-    const storedIdeas = JSON.parse(localStorage.getItem("ideas") || "[]");
-    setIdeas(storedIdeas);
-    const storedSortValue = JSON.parse(localStorage.getItem("sortValue") || "");
-    setSort(storedSortValue);
+    try {
+      const storedIdeas = JSON.parse(localStorage.getItem("ideas") || "[]");
+      setIdeas(storedIdeas);
+      const storedSortValue = JSON.parse(localStorage.getItem("sortValue") || "");
+      setSort(storedSortValue);
+    } catch (err) {
+      console.log(err);
+    }
   }, []);
 
   return (

@@ -35,7 +35,10 @@ const IdeaForm = () => {
   }, []);
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", border: "1px solid grey", width: 200 }}>
+    <div
+      style={{ display: "flex", flexDirection: "column", border: "1px solid grey", width: 200 }}
+      data-testid="idea-form"
+    >
       <h2>Add an idea</h2>
       <form onSubmit={handleSubmit}>
         <div style={{ marginBottom: "20px" }}>
