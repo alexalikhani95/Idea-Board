@@ -1,20 +1,26 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
+import { IdeaContext } from "../context/IdeaContext";
+import { IdeaContextType } from "../types/Idea";
 
 const IdeaForm = () => {
   const titleInputRef = useRef<HTMLInputElement | null>(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
+  const { addIdea } = useContext(IdeaContext) as IdeaContextType;
+
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-
     const ideas = JSON.parse(localStorage.getItem("ideas") || "[]");
 
     const idea = {
+      id: new Date().toLocaleString(),
       title: title,
       description: description,
       createdAt: new Date().toLocaleString(),
     };
+
+    addIdea(idea);
 
     ideas.push(idea);
 
