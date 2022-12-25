@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { IdeaContext } from "../context/IdeaContext";
 import { IdeaType, IdeaContextType } from "../types/Idea";
 import IdeaTile from "./IdeaTile";
+import "../styles/Ideas.css";
 
 const Ideas = () => {
   const { ideas, sort, setSort } = React.useContext(IdeaContext) as IdeaContextType;
@@ -29,10 +30,10 @@ const Ideas = () => {
 
   return (
     <div style={{ marginTop: 20 }}>
-      <button onClick={() => handleSort()}>
+      <button onClick={() => handleSort()} className="sort-button">
         {sort === "created" ? "Sort Ideas alphbetically" : "Sort ideas by creation date"}
       </button>
-      <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
+      <div className="idea-tiles-container">
         {sortedIdeas.map((idea: IdeaType) => (
           <IdeaTile idea={idea} key={idea.createdAt} />
         ))}

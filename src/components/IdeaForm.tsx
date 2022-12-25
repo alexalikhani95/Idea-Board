@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
 import { IdeaContext } from "../context/IdeaContext";
 import { IdeaContextType } from "../types/Idea";
+import "../styles/IdeaForm.css";
 
 const IdeaForm = () => {
   const titleInputRef = useRef<HTMLInputElement | null>(null);
@@ -44,17 +45,14 @@ const IdeaForm = () => {
   }, []);
 
   return (
-    <div
-      style={{ display: "flex", flexDirection: "column", border: "1px solid grey", width: 200 }}
-      data-testid="idea-form"
-    >
+    <div className="add-idea-card" data-testid="idea-form">
       <h2>Add an idea</h2>
       {blankField && (
         <p style={{ color: "red" }}>Please fill in both title and description fields</p>
       )}
       <form onSubmit={handleSubmit}>
         <div style={{ marginBottom: "20px" }}>
-          <label>Title</label>
+          <label style={{ marginRight: "10px" }}>Title</label>
           <input
             type="text"
             name="title"
@@ -63,7 +61,7 @@ const IdeaForm = () => {
           />
         </div>
         <div>
-          <label>Description</label>
+          <label style={{ marginRight: "10px" }}>Description</label>
           <input
             type="text"
             name="description"
@@ -72,7 +70,9 @@ const IdeaForm = () => {
           />
         </div>
         <p>Description Characters remaining: {140 - description.length} / 140</p>
-        <button type="submit">Submit</button>
+        <button type="submit" className="add-idea-button">
+          Submit
+        </button>
       </form>
     </div>
   );

@@ -1,0 +1,17 @@
+.idea-tiles-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.sort-button {
+  border-radius: 5px;
+  padding: 5px;
+  cursor: pointer;
+  background-color: lightgreen;
+  font-weight: bold;
+}
+
+.sort-button:hover {
+  background-color: rgb(189, 248, 189);
+}

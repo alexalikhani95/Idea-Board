@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { IdeaContext } from "../context/IdeaContext";
 import { IdeaContextType, IdeaType } from "../types/Idea";
+import "../styles/IdeaTile.css";
 
 interface IdeaTileProps {
   idea: IdeaType;
@@ -77,12 +78,13 @@ const IdeaTile = ({ idea }: IdeaTileProps) => {
 
   return (
     <div data-testid="idea-tile">
-      <div style={{ width: 300, border: "1px solid black", margin: 20 }}>
+      <div className="idea-tile-container">
         {showUpdatedText && <h3 style={{ color: "blue" }}>Idea updated!</h3>}
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <div className="idea-tile-section ">
           <h2>{idea.title}</h2>{" "}
           <button
-            style={{ display: !editingTitle ? "block" : "none", width: 100 }}
+            className="idea-tile-button"
+            style={{ display: !editingTitle ? "block" : "none" }}
             onClick={() => setEditingTitle(true)}
           >
             Edit title
@@ -93,10 +95,11 @@ const IdeaTile = ({ idea }: IdeaTileProps) => {
           </div>
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <div className="idea-tile-section ">
           <p>{idea.description}</p>
           <button
-            style={{ display: !editingDescription ? "block" : "none", width: 100 }}
+            className="idea-tile-button"
+            style={{ display: !editingDescription ? "block" : "none" }}
             onClick={() => setEditingDescription(true)}
           >
             Edit Description
@@ -109,7 +112,9 @@ const IdeaTile = ({ idea }: IdeaTileProps) => {
 
         <p>Created at: {idea.createdAt}</p>
         {idea.updatedAt && <p>Updated at: {idea.updatedAt}</p>}
-        <button onClick={(e) => handleDelete(e)}>Delete</button>
+        <button className="delete-idea-button" onClick={(e) => handleDelete(e)}>
+          Delete
+        </button>
       </div>
     </div>
   );
