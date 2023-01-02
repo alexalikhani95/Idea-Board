@@ -83,7 +83,7 @@ const IdeaTile = ({ idea }: IdeaTileProps) => {
   };
 
   const handleTitleClickOutside = (e: Event) => {
-    if (editingTitle === false) {
+    if (!editingTitle) {
       return;
     }
     if (titleRef.current && !titleRef.current.contains(e.target as Node)) {
@@ -93,7 +93,7 @@ const IdeaTile = ({ idea }: IdeaTileProps) => {
   };
 
   const handleDescriptionClickOutside = (e: Event) => {
-    if (editingDescription === false) {
+    if (!editingDescription) {
       return;
     }
     if (descriptionRef.current && !descriptionRef.current.contains(e.target as Node)) {
