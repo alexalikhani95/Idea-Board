@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import { IdeaContext } from "../context/IdeaContext";
 import { IdeaContextType, IdeaType } from "../types/Idea";
 import "../styles/IdeaTile.css";
@@ -14,6 +14,8 @@ const IdeaTile = ({ idea }: IdeaTileProps) => {
   const [editingTitle, setEditingTitle] = useState(false);
   const [editingDescription, setEditingDescription] = useState(false);
   const [showUpdatedText, setShowUpdatedText] = useState(false);
+  const titleRef = useRef<HTMLTextAreaElement | null>(null);
+  const descriptionRef = useRef<HTMLTextAreaElement | null>(null);
 
   const handleDelete = (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -70,6 +72,40 @@ const IdeaTile = ({ idea }: IdeaTileProps) => {
     setShowUpdatedText(true);
   };
 
+  const handleTitleClickOutside = (e: Event) => {
+    if (editingTitle === false) {
+      return;
+    }
+    if (titleRef.current && !titleRef.current.contains(e.target as Node)) {
+      handleUpdateTitle(e);
+      setEditingTitle(false);
+    }
+  };
+
+  const handleDescriptionClickOutside = (e: Event) => {
+    if (editingDescription === false) {
+      return;
+    }
+    if (descriptionRef.current && !descriptionRef.current.contains(e.target as Node)) {
+      handleUpdateDescription(e);
+      setEditingDescription(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("click", handleTitleClickOutside, true);
+    return () => {
+      document.removeEventListener("click", handleTitleClickOutside, true);
+    };
+  });
+
+  useEffect(() => {
+    document.addEventListener("click", handleDescriptionClickOutside, true);
+    return () => {
+      document.removeEventListener("click", handleDescriptionClickOutside, true);
+    };
+  });
+
   useEffect(() => {
     setTimeout(function () {
       setShowUpdatedText(false);
@@ -81,33 +117,33 @@ const IdeaTile = ({ idea }: IdeaTileProps) => {
       <div className="idea-tile-container">
         {showUpdatedText && <h3 style={{ color: "blue" }}>Idea updated!</h3>}
         <div className="idea-tile-section ">
-          <h2>{idea.title}</h2>{" "}
-          <button
-            className="idea-tile-button"
-            style={{ display: !editingTitle ? "block" : "none" }}
+          <h2
+            style={{ display: !editingTitle ? "flex" : "none" }}
             onClick={() => setEditingTitle(true)}
           >
-            Edit title
-          </button>
-          <div style={{ display: editingTitle ? "flex" : "none" }}>
-            <input type="text" onChange={(e) => setUpdatedTitle(e.target.value)} />
-            <button onClick={(e) => handleUpdateTitle(e)}>Update title</button>
-          </div>
+            {idea.title}
+          </h2>
+          <textarea
+            style={{ display: editingTitle ? "flex" : "none" }}
+            onChange={(e) => setUpdatedTitle(e.target.value)}
+            ref={titleRef}
+            defaultValue={idea.title}
+          />
         </div>
 
         <div className="idea-tile-section ">
-          <p>{idea.description}</p>
-          <button
-            className="idea-tile-button"
-            style={{ display: !editingDescription ? "block" : "none" }}
+          <p
+            style={{ display: !editingDescription ? "flex" : "none" }}
             onClick={() => setEditingDescription(true)}
           >
-            Edit Description
-          </button>
-          <div style={{ display: editingDescription ? "flex" : "none" }}>
-            <input type="text" onChange={(e) => setUpdatedDescription(e.target.value)} />
-            <button onClick={(e) => handleUpdateDescription(e)}>Update Description</button>
-          </div>
+            {idea.description}
+          </p>
+          <textarea
+            style={{ display: editingDescription ? "flex" : "none" }}
+            onChange={(e) => setUpdatedDescription(e.target.value)}
+            ref={descriptionRef}
+            defaultValue={idea.description}
+          />
         </div>
 
         <p>Created at: {idea.createdAt}</p>
