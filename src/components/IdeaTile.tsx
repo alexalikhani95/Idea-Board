@@ -26,6 +26,11 @@ const IdeaTile = ({ idea }: IdeaTileProps) => {
 
   const handleUpdateTitle = (e: { preventDefault: () => void }) => {
     e.preventDefault();
+
+    if (updatedTitle === "") {
+      return;
+    }
+
     //making a copy of the global state array of ideas
     let ideasList = [...ideas];
 
@@ -53,6 +58,11 @@ const IdeaTile = ({ idea }: IdeaTileProps) => {
 
   const handleUpdateDescription = (e: { preventDefault: () => void }) => {
     e.preventDefault();
+
+    if (updatedDescription === "") {
+      return;
+    }
+
     let ideasList = [...ideas];
 
     const index = ideasList.map((i) => i.description).indexOf(idea.description);
