@@ -12,7 +12,6 @@ type Inputs = {
 const IdeaForm = () => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm<Inputs>();
 
-  const titleInputRef = useRef<HTMLInputElement | null>(null);
   const [description, setDescription] = useState("");
 
   const { setIdeas } = useContext(IdeaContext) as IdeaContextType;
@@ -36,13 +35,6 @@ const IdeaForm = () => {
     
   }
 
-  useEffect(() => {
-    // If statement to check that the ref is not null to satisfy typescript
-    if (titleInputRef.current) {
-      titleInputRef.current.focus();
-    }
-  }, []);
-
   return (
     <div className="add-idea-card" data-testid="idea-form">
       <h2>Add an idea</h2>
@@ -52,6 +44,7 @@ const IdeaForm = () => {
           <label style={{ marginRight: "10px" }}>Title</label>
           <input
             type="text"
+            autoFocus={true}
             {...register("title", { required: true })}
           />
         </div>
