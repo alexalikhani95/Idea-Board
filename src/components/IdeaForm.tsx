@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import { IdeaContext } from "../context/IdeaContext";
 import { IdeaContextType } from "../types/Idea";
 import "../styles/IdeaForm.css";
