@@ -3,6 +3,8 @@ import { IdeaContext } from "../context/IdeaContext";
 import { IdeaContextType } from "../types/Idea";
 import "../styles/IdeaForm.css";
 import { useForm } from "react-hook-form";
+import {v4 as uuidv4} from 'uuid'
+
 
 type Inputs = {
   title: string,
@@ -26,7 +28,7 @@ const IdeaForm = () => {
     const ideas = JSON.parse(localStorage.getItem("ideas") || "[]");
 
     const idea = {
-      id: new Date().toLocaleString(),
+      id: uuidv4(),
       title: data.title,
       description: data.description,
       createdAt: new Date().toLocaleString(),
