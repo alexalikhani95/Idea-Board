@@ -10,7 +10,12 @@ type Inputs = {
 };
 
 const IdeaForm = () => {
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<Inputs>();
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<Inputs>({
+    defaultValues: {
+      title: "",
+      description: ""
+    }
+  });
 
   const [description, setDescription] = useState("");
 
@@ -32,7 +37,8 @@ const IdeaForm = () => {
     ideas.push(idea);
 
     localStorage.setItem("ideas", JSON.stringify(ideas));
-    
+
+    reset()
   }
 
   return (
