@@ -39,6 +39,7 @@ const IdeaForm = () => {
     localStorage.setItem("ideas", JSON.stringify(ideas));
 
     reset()
+    setDescription("")
   }
 
   return (
