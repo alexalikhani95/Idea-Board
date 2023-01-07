@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { IdeaContext } from "../context/IdeaContext";
 import { IdeaContextType } from "../types/Idea";
 import "../styles/IdeaForm.css";
-import { useForm } from "react-hook-form";
+import { useForm} from "react-hook-form";
 import {v4 as uuidv4} from 'uuid'
 
 
@@ -12,14 +12,12 @@ type Inputs = {
 };
 
 const IdeaForm = () => {
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<Inputs>({
+  const { register, handleSubmit, formState: { errors }, reset, watch } = useForm<Inputs>({
     defaultValues: {
       title: "",
       description: ""
     }
   });
-
-  const [description, setDescription] = useState("");
 
   const { setIdeas } = useContext(IdeaContext) as IdeaContextType;
 
@@ -41,7 +39,6 @@ const IdeaForm = () => {
     localStorage.setItem("ideas", JSON.stringify(ideas));
 
     reset()
-    setDescription("")
   }
 
   return (
@@ -63,11 +60,10 @@ const IdeaForm = () => {
           <input
             {...register("description", { required: true })}
             maxLength={140}
-            onChange={(e) => setDescription(e.target.value)}
           />
         </div>
         {errors.description?.type === 'required' && <span style={{ color: "red" }}>A description is required</span>}
-        <p>Description Characters remaining: {140 - description.length} / 140</p>
+        <p>Description Characters remaining: {140 - watch("description").length} / 140</p>
         <button type="submit" className="add-idea-button">
           Submit
         </button>
