@@ -5,9 +5,10 @@ import "../styles/IdeaTile.css";
 
 interface IdeaTileProps {
   idea: IdeaType;
+  deleteIdea: any
 }
 
-const IdeaTile = ({ idea }: IdeaTileProps) => {
+const IdeaTile = ({ idea, deleteIdea }: IdeaTileProps) => {
   const { ideas, setIdeas } = useContext(IdeaContext) as IdeaContextType;
   const [updatedTitle, setUpdatedTitle] = useState("");
   const [updatedDescription, setUpdatedDescription] = useState("");
@@ -19,9 +20,8 @@ const IdeaTile = ({ idea }: IdeaTileProps) => {
 
   const handleDelete = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    const filteredIdeas = ideas.filter((i) => i.id !== idea.id);
-    setIdeas(filteredIdeas);
-    localStorage.setItem("ideas", JSON.stringify(filteredIdeas));
+    console.log(idea)
+    deleteIdea(idea.id)
   };
 
   const handleUpdateTitle = (e: { preventDefault: () => void }) => {

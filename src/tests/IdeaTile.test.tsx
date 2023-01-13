@@ -7,14 +7,14 @@ import IdeaTile from "../components/IdeaTile";
 test("Idea Title is present in the document with its title text when there is an idea", async () => {
   render(
     <IdeaProvider>
-      <IdeaTile
+      {/* <IdeaTile
         idea={{
           id: "123",
           title: "test title",
           description: "test description",
           createdAt: new Date().toLocaleString(),
         }}
-      />
+      /> */}
     </IdeaProvider>
   );
   const ideaTile = screen.getByTestId("idea-tile");
