@@ -28,7 +28,8 @@ const IdeaTile = ({ idea, deleteIdea, updateIdea }: IdeaTileProps) => {
     if (titleRef.current && !titleRef.current.contains(e.target as Node)) {
       updateIdea({
         ...idea,
-        title: updatedTitle
+        title: updatedTitle,
+        updatedAt: new Date().toLocaleString(),
       })
       setEditingTitle(false);
     }
@@ -41,7 +42,8 @@ const IdeaTile = ({ idea, deleteIdea, updateIdea }: IdeaTileProps) => {
     if (descriptionRef.current && !descriptionRef.current.contains(e.target as Node)) {
       updateIdea({
         ...idea,
-        description: updatedDescription
+        description: updatedDescription,
+        updatedAt: new Date().toLocaleString(),
       })
       setEditingDescription(false);
     }
