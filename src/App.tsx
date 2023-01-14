@@ -15,6 +15,15 @@ const ideasReducer = (ideas: IdeaType[], action: any) => {
         createdAt: action.createdAt
       }];
     }
+    case 'update': {
+      return ideas.map(i => {
+        if (i.id === action.idea.id) {
+          return action.idea;
+        } else {
+          return i;
+        }
+      });
+    }
     case 'delete': {
       return ideas.filter(idea => idea.id !== action.id);
     }
@@ -48,6 +57,13 @@ const App = () => {
     });
   }
 
+  function handleUpdateIdea(idea: IdeaType) {
+    dispatch({
+      type: 'update',
+      idea: idea
+    });
+  }
+
   useEffect(() => {
     localStorage.setItem('ideas', JSON.stringify(ideas));
   }, [ideas])
@@ -57,7 +73,7 @@ const App = () => {
       <div className="App">
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <IdeaForm addIdea={handleAddIdea}/>
-          <Ideas deleteIdea={handleDeleteIdea} ideas={ideas}/>
+          <Ideas deleteIdea={handleDeleteIdea} ideas={ideas} updateIdea={handleUpdateIdea}/>
         </div>
       </div>
     </IdeaProvider>
