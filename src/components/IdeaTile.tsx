@@ -18,9 +18,7 @@ const IdeaTile = ({ idea, deleteIdea }: IdeaTileProps) => {
   const titleRef = useRef<HTMLTextAreaElement | null>(null);
   const descriptionRef = useRef<HTMLTextAreaElement | null>(null);
 
-  const handleDelete = (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    console.log(idea)
+  const handleDelete = () => {
     deleteIdea(idea.id)
   };
 
@@ -158,7 +156,7 @@ const IdeaTile = ({ idea, deleteIdea }: IdeaTileProps) => {
 
         <p>Created at: {idea.createdAt}</p>
         {idea.updatedAt && <p>Updated at: {idea.updatedAt}</p>}
-        <button className="delete-idea-button" onClick={(e) => handleDelete(e)}>
+        <button className="delete-idea-button" onClick={handleDelete}>
           Delete
         </button>
       </div>

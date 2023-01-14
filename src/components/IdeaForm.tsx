@@ -1,6 +1,3 @@
-import { useState, useContext } from "react";
-import { IdeaContext } from "../context/IdeaContext";
-import { IdeaContextType } from "../types/Idea";
 import "../styles/IdeaForm.css";
 import { useForm} from "react-hook-form";
 import {v4 as uuidv4} from 'uuid'
@@ -11,7 +8,11 @@ type Inputs = {
   description: string,
 };
 
-const IdeaForm = () => {
+interface IdeaFormProps {
+  addIdea: any
+}
+
+const IdeaForm = ({addIdea}: IdeaFormProps) => {
   const { register, handleSubmit, formState: { errors }, reset, watch } = useForm<Inputs>({
     defaultValues: {
       title: "",
@@ -19,24 +20,14 @@ const IdeaForm = () => {
     }
   });
 
-  const { setIdeas } = useContext(IdeaContext) as IdeaContextType;
 
-  const submitForm = (data: Inputs) => {
-
-    const ideas = JSON.parse(localStorage.getItem("ideas") || "[]");
-
-    const idea = {
+  const submitForm = ( data: Inputs) => {
+    addIdea({
       id: uuidv4(),
       title: data.title,
       description: data.description,
       createdAt: new Date().toLocaleString(),
-    };
-
-    setIdeas([...ideas, idea]);
-
-    ideas.push(idea);
-
-    localStorage.setItem("ideas", JSON.stringify(ideas));
+    })
 
     reset()
   }
