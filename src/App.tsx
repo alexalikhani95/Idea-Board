@@ -5,7 +5,21 @@ import Ideas from "./components/Ideas";
 import IdeaProvider from "./context/IdeaContext";
 import { IdeaType } from "./types/Idea";
 
-const ideasReducer = (ideas: IdeaType[], action: any) => {
+// export interface IdeaType {
+//   id: string;
+//   title: string;
+//   description: string;
+//   createdAt: string;
+//   updatedAt?: string;
+// }
+
+type Action = 
+  | {type: 'added'; id: string; title: string; description: string; createdAt: string;}
+  | {type: 'delete'; id: string;}
+  | {type: 'update'; idea: IdeaType}
+
+
+const ideasReducer = (ideas: IdeaType[], action: Action) => {
   switch (action.type) {
     case 'added': {
       return [...ideas, {
@@ -16,19 +30,16 @@ const ideasReducer = (ideas: IdeaType[], action: any) => {
       }];
     }
     case 'update': {
-      return ideas.map(i => {
-        if (i.id === action.idea.id) {
+      return ideas.map(idea => {
+        if (idea.id === action.idea.id) {
           return action.idea;
         } else {
-          return i;
+          return idea;
         }
       });
     }
     case 'delete': {
       return ideas.filter(idea => idea.id !== action.id);
-    }
-    default: {
-      throw Error('Unknown action: ' + action.type);
     }
   }
 }
