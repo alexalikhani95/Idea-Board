@@ -5,16 +5,9 @@ import Ideas from "./components/Ideas";
 import IdeaProvider from "./context/IdeaContext";
 import { IdeaType } from "./types/Idea";
 
-// export interface IdeaType {
-//   id: string;
-//   title: string;
-//   description: string;
-//   createdAt: string;
-//   updatedAt?: string;
-// }
 
 type Action = 
-  | {type: 'added'; id: string; title: string; description: string; createdAt: string;}
+  | {type: 'added'; idea: IdeaType}
   | {type: 'delete'; id: string;}
   | {type: 'update'; idea: IdeaType}
 
@@ -22,12 +15,7 @@ type Action =
 const ideasReducer = (ideas: IdeaType[], action: Action) => {
   switch (action.type) {
     case 'added': {
-      return [...ideas, {
-        id: action.id,
-        title: action.title,
-        description: action.description,
-        createdAt: action.createdAt
-      }];
+      return [...ideas, action.idea];
     }
     case 'update': {
       return ideas.map(idea => {
@@ -61,10 +49,7 @@ const App = () => {
   const handleAddIdea = (idea: IdeaType) => {
     dispatch({
       type: 'added',
-      id: idea.id,
-      title: idea.title,
-      description: idea.description,
-      createdAt: idea.createdAt
+      idea: idea
     });
   }
 
