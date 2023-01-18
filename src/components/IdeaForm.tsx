@@ -51,6 +51,7 @@ const IdeaForm = ({addIdea}: IdeaFormProps) => {
           <input
             {...register("description", { required: true })}
             maxLength={140}
+            data-testid="description-input"
           />
         </div>
         {errors.description?.type === 'required' && <span style={{ color: "red" }}>A description is required</span>}
