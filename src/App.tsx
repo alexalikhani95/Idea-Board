@@ -28,7 +28,7 @@ const App = () => {
     });
   }
 
-  function handleUpdateIdea(idea: IdeaType) {
+  const handleUpdateIdea = (idea: IdeaType) => {
     dispatch({
       type: 'update',
       idea: idea
