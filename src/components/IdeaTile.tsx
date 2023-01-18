@@ -1,14 +1,14 @@
-import React, { useContext, useEffect, useState, useRef } from "react";
-import { IdeaContext } from "../context/IdeaContext";
-import { IdeaContextType, IdeaType } from "../types/Idea";
+import React, { useEffect, useState, useRef } from "react";
+import { IdeaType } from "../types/Idea";
 import "../styles/IdeaTile.css";
 
 interface IdeaTileProps {
   idea: IdeaType;
+  deleteIdea: any;
+  updateIdea: any;
 }
 
-const IdeaTile = ({ idea }: IdeaTileProps) => {
-  const { ideas, setIdeas } = useContext(IdeaContext) as IdeaContextType;
+const IdeaTile = ({ idea, deleteIdea, updateIdea }: IdeaTileProps) => {
   const [updatedTitle, setUpdatedTitle] = useState("");
   const [updatedDescription, setUpdatedDescription] = useState("");
   const [editingTitle, setEditingTitle] = useState(false);
@@ -17,69 +17,8 @@ const IdeaTile = ({ idea }: IdeaTileProps) => {
   const titleRef = useRef<HTMLTextAreaElement | null>(null);
   const descriptionRef = useRef<HTMLTextAreaElement | null>(null);
 
-  const handleDelete = (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    const filteredIdeas = ideas.filter((i) => i.id !== idea.id);
-    setIdeas(filteredIdeas);
-    localStorage.setItem("ideas", JSON.stringify(filteredIdeas));
-  };
-
-  const handleUpdateTitle = (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-
-    if (updatedTitle === "") {
-      return;
-    }
-
-    //making a copy of the global state array of ideas
-    let ideasList = [...ideas];
-
-    // get index in ideas array of the selected idea
-    const index = ideasList.map((i) => i.title).indexOf(idea.title);
-
-    // making a copy of the selected idea
-    let selectedIdea = { ...ideasList[index] };
-
-    // updating the title of the selected idea
-    selectedIdea.title = updatedTitle;
-
-    selectedIdea.updatedAt = new Date().toLocaleString();
-
-    // Adding the selected idea with updated title back to its place in the array
-    ideasList[index] = selectedIdea;
-
-    // Set the global ideas array to the new mutated array with the updated target idea
-    setIdeas(ideasList);
-    localStorage.setItem("ideas", JSON.stringify(ideasList));
-
-    setEditingTitle(false);
-    setShowUpdatedText(true);
-  };
-
-  const handleUpdateDescription = (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-
-    if (updatedDescription === "") {
-      return;
-    }
-
-    let ideasList = [...ideas];
-
-    const index = ideasList.map((i) => i.description).indexOf(idea.description);
-
-    let selectedIdea = { ...ideasList[index] };
-
-    selectedIdea.description = updatedDescription;
-
-    selectedIdea.updatedAt = new Date().toLocaleString();
-
-    ideasList[index] = selectedIdea;
-
-    setIdeas(ideasList);
-    localStorage.setItem("ideas", JSON.stringify(ideasList));
-
-    setEditingDescription(false);
-    setShowUpdatedText(true);
+  const handleDelete = () => {
+    deleteIdea(idea.id)
   };
 
   const handleTitleClickOutside = (e: Event) => {
@@ -87,7 +26,11 @@ const IdeaTile = ({ idea }: IdeaTileProps) => {
       return;
     }
     if (titleRef.current && !titleRef.current.contains(e.target as Node)) {
-      handleUpdateTitle(e);
+      updateIdea({
+        ...idea,
+        title: updatedTitle,
+        updatedAt: new Date().toLocaleString(),
+      })
       setEditingTitle(false);
     }
   };
@@ -97,7 +40,11 @@ const IdeaTile = ({ idea }: IdeaTileProps) => {
       return;
     }
     if (descriptionRef.current && !descriptionRef.current.contains(e.target as Node)) {
-      handleUpdateDescription(e);
+      updateIdea({
+        ...idea,
+        description: updatedDescription,
+        updatedAt: new Date().toLocaleString(),
+      })
       setEditingDescription(false);
     }
   };
@@ -123,13 +70,14 @@ const IdeaTile = ({ idea }: IdeaTileProps) => {
   }, [showUpdatedText]);
 
   return (
-    <div data-testid="idea-tile">
+    <div data-testid={`idea-tile${idea.id}`}>
       <div className="idea-tile-container">
         {showUpdatedText && <h3 style={{ color: "blue" }}>Idea updated!</h3>}
         <div className="idea-tile-section ">
           <h2
             style={{ display: !editingTitle ? "flex" : "none" }}
             onClick={() => setEditingTitle(true)}
+            data-testid={`idea-title${idea.id}`}
           >
             {idea.title}
           </h2>
@@ -158,7 +106,7 @@ const IdeaTile = ({ idea }: IdeaTileProps) => {
 
         <p>Created at: {idea.createdAt}</p>
         {idea.updatedAt && <p>Updated at: {idea.updatedAt}</p>}
-        <button className="delete-idea-button" onClick={(e) => handleDelete(e)}>
+        <button className="delete-idea-button" onClick={handleDelete} data-testid={`delete-idea${idea.id}`}>
           Delete
         </button>
       </div>
