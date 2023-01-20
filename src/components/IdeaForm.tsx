@@ -1,6 +1,7 @@
 import "../styles/IdeaForm.css";
 import { useForm} from "react-hook-form";
 import {v4 as uuidv4} from 'uuid'
+import { IdeaType } from "../types/Idea";
 
 
 type Inputs = {
@@ -8,8 +9,8 @@ type Inputs = {
   description: string,
 };
 
-interface IdeaFormProps {
-  addIdea: any
+type IdeaFormProps = {
+  addIdea: (idea: IdeaType) => void
 }
 
 const IdeaForm = ({addIdea}: IdeaFormProps) => {

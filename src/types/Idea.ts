@@ -1,4 +1,4 @@
-export interface IdeaType {
+export type IdeaType = {
   id: string;
   title: string;
   description: string;
@@ -6,7 +6,7 @@ export interface IdeaType {
   updatedAt?: string;
 }
 
-export interface IdeaContextType {
+export type IdeaContextType = {
   ideas: IdeaType[];
   setIdeas: React.Dispatch<React.SetStateAction<IdeaType[]>>;
   sort: string;

@@ -14,7 +14,7 @@ const App = () => {
     initialState
   );
 
-  const handleDeleteIdea = (ideaId: any) => {
+  const handleDeleteIdea = (ideaId: string) => {
     dispatch({
       type: 'delete',
       id: ideaId

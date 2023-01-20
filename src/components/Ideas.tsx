@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import { IdeaContext } from "../context/IdeaContext";
 import { IdeaType, IdeaContextType } from "../types/Idea";
 import IdeaTile from "./IdeaTile";
 import "../styles/Ideas.css";
 
-const Ideas = ({deleteIdea, ideas, updateIdea}: any) => {
+type IdeasProps = {
+  deleteIdea: (ideaId: string) => void
+  ideas: IdeaType[]
+  updateIdea: (idea: IdeaType) => void
+}
+
+const Ideas = ({deleteIdea, ideas, updateIdea}: IdeasProps) => {
   const {sort, setSort } = React.useContext(IdeaContext) as IdeaContextType;
 
   const sortIdeas = () => {

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { IdeaType } from "../types/Idea";
 import "../styles/IdeaTile.css";
 
-interface IdeaTileProps {
+type IdeaTileProps = {
   idea: IdeaType;
   deleteIdea: any;
   updateIdea: any;
