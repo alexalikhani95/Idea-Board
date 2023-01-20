@@ -70,14 +70,13 @@ const IdeaTile = ({ idea, deleteIdea, updateIdea }: IdeaTileProps) => {
   }, [showUpdatedText]);
 
   return (
-    <div data-testid={`idea-tile${idea.id}`}>
+    <div>
       <div className="idea-tile-container">
         {showUpdatedText && <h3 style={{ color: "blue" }}>Idea updated!</h3>}
         <div className="idea-tile-section ">
           <h2
             style={{ display: !editingTitle ? "flex" : "none" }}
             onClick={() => setEditingTitle(true)}
-            data-testid={`idea-title${idea.id}`}
           >
             {idea.title}
           </h2>
@@ -106,7 +105,7 @@ const IdeaTile = ({ idea, deleteIdea, updateIdea }: IdeaTileProps) => {
 
         <p>Created at: {idea.createdAt}</p>
         {idea.updatedAt && <p>Updated at: {idea.updatedAt}</p>}
-        <button className="delete-idea-button" onClick={handleDelete} data-testid={`delete-idea${idea.id}`}>
+        <button className="delete-idea-button" onClick={handleDelete}>
           Delete
         </button>
       </div>

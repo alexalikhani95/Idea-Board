@@ -23,9 +23,8 @@ test("Text under the description updates to show how many characters of the desc
     </IdeaProvider>
   );
 
-  const descriptionInput = screen.getByTestId("description-input")
+  const descriptionInput = screen.getByLabelText("Description")
   
-  expect(descriptionInput).toBeInTheDocument()
   expect(screen.getByText("Description Characters remaining: 140 / 140")).toBeInTheDocument();
 
   fireEvent.change(descriptionInput, { target: { value: 'abc' } })

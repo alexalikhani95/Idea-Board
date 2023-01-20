@@ -1,11 +1,12 @@
 import React from "react";
-import { fireEvent, getByTestId, render, screen, waitForElementToBeRemoved } from "@testing-library/react";
+import { fireEvent, render, screen} from "@testing-library/react";
 import App from "../App";
 import IdeaProvider from "../context/IdeaContext";
 import IdeaTile from "../components/IdeaTile";
 
-const mockDeleteIdea = () => {}
-const mockUpdateIdea = () => {}
+
+const mockUpdateIdea = jest.fn()
+const mockDeleteIdea = jest.fn()
 
 const mockIdea = {
   id: '123',
@@ -21,26 +22,25 @@ test("Idea Title is present in the document with its title text when there is an
     </IdeaProvider>
   );
 
-  // expect the containg div to be present
-  expect(screen.getByTestId("idea-tile123")).toBeInTheDocument();
+  const title = screen.getAllByText('test title');
 
-  //expect the title element in an idea with the id of '123' to be present and contain the correct text
-  expect(screen.getByTestId('idea-title123')).toBeInTheDocument()  
-  expect(screen.getByTestId('idea-title123')).toHaveTextContent('test title')
-});
+  //The title text displayed to the user
+  expect(title[0]).toBeVisible(); 
 
-test("Clicking the delete button on an idea removes the idea from the DOM", async () => {
+  // The title text in the DOM thats the default value for the textarea behind the title
+  expect(title[1]).toBeInTheDocument()
+  });
+
+test("Clicking the delete button on an idea removes the idea from the DOM", () => {
   render(
     <IdeaProvider>
       <IdeaTile idea={mockIdea} updateIdea={mockDeleteIdea} deleteIdea={mockUpdateIdea}/>
     </IdeaProvider>
   );
 
-  expect(screen.getByTestId("idea-tile123")).toBeInTheDocument();
-
-  //expect the title element in an idea with the id of '123' to be present and contain the correct text
-  expect(screen.getByTestId('delete-idea123')).toBeInTheDocument()  
-  fireEvent.click(screen.getByTestId('delete-idea123'))
-  expect(screen.queryByTestId("idea-tile123")).not.toBeInTheDocument();
+  const deleteBtn = screen.getByText('Delete')
+ 
+  fireEvent.click(deleteBtn)
+  expect(mockDeleteIdea).toHaveBeenCalled();
 
 });

@@ -4,6 +4,6 @@ import App from "../App";
 
 test("Add Idea form is present in the document", () => {
   render(<App />);
-  const ideaForm = screen.getByTestId("idea-form");
-  expect(ideaForm).toBeInTheDocument();
+  const ideaFormTitle = screen.getByText("Add an idea");
+  expect(ideaFormTitle).toBeInTheDocument();
 });
