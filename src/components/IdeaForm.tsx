@@ -1,7 +1,9 @@
 import "../styles/IdeaForm.css";
 import { useForm} from "react-hook-form";
 import {v4 as uuidv4} from 'uuid'
-import { IdeaType } from "../types/Idea";
+import { IdeaContextType, IdeaType } from "../types/Idea";
+import { useContext } from "react";
+import IdeaContext from "../context/IdeaContext";
 
 
 type Inputs = {
@@ -9,11 +11,12 @@ type Inputs = {
   description: string,
 };
 
-type IdeaFormProps = {
-  addIdea: (idea: IdeaType) => void
-}
+// type IdeaFormProps = {
+//   addIdea: (idea: IdeaType) => void
+// }
 
-const IdeaForm = ({addIdea}: IdeaFormProps) => {
+const IdeaForm = () => {
+  const {handleAddIdea } = useContext(IdeaContext) as IdeaContextType;
   const { register, handleSubmit, formState: { errors }, reset, watch } = useForm<Inputs>({
     defaultValues: {
       title: "",
@@ -23,7 +26,7 @@ const IdeaForm = ({addIdea}: IdeaFormProps) => {
 
 
   const submitForm = ( data: Inputs) => {
-    addIdea({
+    handleAddIdea({
       id: uuidv4(),
       title: data.title,
       description: data.description,
