@@ -34,7 +34,7 @@ test("Idea Title is present in the document with its title text when there is an
 test("Clicking the delete button on an idea removes the idea from the DOM", () => {
   render(
     <IdeaProvider>
-      <IdeaTile idea={mockIdea} updateIdea={mockDeleteIdea} deleteIdea={mockUpdateIdea}/>
+      <IdeaTile idea={mockIdea} updateIdea={mockUpdateIdea} deleteIdea={mockDeleteIdea}/>
     </IdeaProvider>
   );
 

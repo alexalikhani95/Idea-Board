@@ -35,8 +35,16 @@ test("Idea Title is present in the document with its title text when there is an
   );
 
   // expect all the ideas to be present
-  expect(screen.getByTestId("idea-tile123")).toBeInTheDocument();
-  expect(screen.getByTestId("idea-tileabc")).toBeInTheDocument();
-  expect(screen.getByTestId("idea-tile456")).toBeInTheDocument();
+  const title1 = screen.getAllByText('test title');
+  expect(title1[0]).toBeVisible();
+  expect(title1[1]).toBeInTheDocument()
+
+  const title2 = screen.getAllByText('test title 2');
+  expect(title2[0]).toBeVisible();
+  expect(title2[1]).toBeInTheDocument()
+
+  const title3 = screen.getAllByText('test title 3');
+  expect(title3[0]).toBeVisible();
+  expect(title3[1]).toBeInTheDocument()
 });
 
