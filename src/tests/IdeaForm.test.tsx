@@ -8,7 +8,7 @@ const mockAddIdea = () => {}
 test("Idea Title is present in the document with its title text when there is an idea", () => {
   render(
     <IdeaProvider>
-      <IdeaForm addIdea={mockAddIdea}/>
+      <IdeaForm />
     </IdeaProvider>
   );
 
@@ -19,7 +19,7 @@ test("Idea Title is present in the document with its title text when there is an
 test("Text under the description updates to show how many characters of the description are left out of 140", () => {
   render(
     <IdeaProvider>
-      <IdeaForm addIdea={mockAddIdea}/>
+      <IdeaForm />
     </IdeaProvider>
   );
 

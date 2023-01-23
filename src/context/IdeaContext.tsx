@@ -9,7 +9,6 @@ type IdeaProviderProps = {
 export const IdeaContext = createContext<IdeaContextType | null>(null);
 
 const IdeaProvider = ({ children }: IdeaProviderProps) => {
-  // const [ideas, setIdeas] = useState<IdeaType[]>([]);
   const initialState = JSON.parse(localStorage.getItem("ideas") || "[]")
   const [ideas, dispatch] = useReducer(
     IdeasReducer,

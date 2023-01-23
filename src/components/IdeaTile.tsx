@@ -1,14 +1,16 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import { IdeaType } from "../types/Idea";
 import "../styles/IdeaTile.css";
+import { IdeaContext } from "../context/IdeaContext";
 
 type IdeaTileProps = {
   idea: IdeaType;
-  deleteIdea: any;
-  updateIdea: any;
 }
 
-const IdeaTile = ({ idea, deleteIdea, updateIdea }: IdeaTileProps) => {
+const IdeaTile = ({ idea}: IdeaTileProps) => {
+    //@ts-expect-error
+    const {handleDeleteIdea, handleUpdateIdea } = useContext(IdeaContext) as IdeaContextType;
+
   const [updatedTitle, setUpdatedTitle] = useState("");
   const [updatedDescription, setUpdatedDescription] = useState("");
   const [editingTitle, setEditingTitle] = useState(false);
@@ -18,7 +20,7 @@ const IdeaTile = ({ idea, deleteIdea, updateIdea }: IdeaTileProps) => {
   const descriptionRef = useRef<HTMLTextAreaElement | null>(null);
 
   const handleDelete = () => {
-    deleteIdea(idea.id)
+    handleDeleteIdea(idea.id)
   };
 
   const handleTitleClickOutside = (e: Event) => {
@@ -26,7 +28,7 @@ const IdeaTile = ({ idea, deleteIdea, updateIdea }: IdeaTileProps) => {
       return;
     }
     if (titleRef.current && !titleRef.current.contains(e.target as Node)) {
-      updateIdea({
+      handleUpdateIdea({
         ...idea,
         title: updatedTitle,
         updatedAt: new Date().toLocaleString(),
@@ -40,7 +42,7 @@ const IdeaTile = ({ idea, deleteIdea, updateIdea }: IdeaTileProps) => {
       return;
     }
     if (descriptionRef.current && !descriptionRef.current.contains(e.target as Node)) {
-      updateIdea({
+      handleUpdateIdea({
         ...idea,
         description: updatedDescription,
         updatedAt: new Date().toLocaleString(),

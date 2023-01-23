@@ -1,16 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { IdeaContext } from "../context/IdeaContext";
 import { IdeaType, IdeaContextType } from "../types/Idea";
 import IdeaTile from "./IdeaTile";
 import "../styles/Ideas.css";
 
-type IdeasProps = {
-  deleteIdea: (ideaId: string) => void
-  ideas: IdeaType[]
-  updateIdea: (idea: IdeaType) => void
-}
-
-const Ideas = ({deleteIdea, ideas, updateIdea}: IdeasProps) => {
+const Ideas = () => {
+    //@ts-ignore
+    const { ideas } = useContext(IdeaContext) as IdeaContextType;
   const {sort, setSort } = React.useContext(IdeaContext) as IdeaContextType;
 
   const sortIdeas = () => {
@@ -41,7 +37,7 @@ const Ideas = ({deleteIdea, ideas, updateIdea}: IdeasProps) => {
       </button>
       <div className="idea-tiles-container">
         {sortedIdeas.map((idea: IdeaType) => (
-          <IdeaTile idea={idea} key={idea.createdAt} deleteIdea={deleteIdea} updateIdea={updateIdea}/>
+          <IdeaTile idea={idea} key={idea.createdAt} />
         ))}
       </div>
     </div>

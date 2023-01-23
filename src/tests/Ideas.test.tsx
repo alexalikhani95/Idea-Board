@@ -30,7 +30,7 @@ const mockIdeas = [
 test("Idea Title is present in the document with its title text when there is an idea", () => {
   render(
     <IdeaProvider>
-      <Ideas ideas={mockIdeas} updateIdea={mockDeleteIdea} deleteIdea={mockUpdateIdea}/>
+      <Ideas />
     </IdeaProvider>
   );
 

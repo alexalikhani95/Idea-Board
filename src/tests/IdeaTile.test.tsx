@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { fireEvent, render, screen} from "@testing-library/react";
 import App from "../App";
 import IdeaProvider from "../context/IdeaContext";
@@ -18,7 +18,7 @@ const mockIdea = {
 test("Idea Title is present in the document with its title text when there is an idea", () => {
   render(
     <IdeaProvider>
-      <IdeaTile idea={mockIdea} updateIdea={mockDeleteIdea} deleteIdea={mockUpdateIdea}/>
+      <IdeaTile idea={mockIdea}/>
     </IdeaProvider>
   );
 
@@ -34,7 +34,7 @@ test("Idea Title is present in the document with its title text when there is an
 test("Clicking the delete button on an idea removes the idea from the DOM", () => {
   render(
     <IdeaProvider>
-      <IdeaTile idea={mockIdea} updateIdea={mockUpdateIdea} deleteIdea={mockDeleteIdea}/>
+      <IdeaTile idea={mockIdea} />
     </IdeaProvider>
   );
 

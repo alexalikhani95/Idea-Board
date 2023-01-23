@@ -1,9 +1,9 @@
 import "../styles/IdeaForm.css";
 import { useForm} from "react-hook-form";
 import {v4 as uuidv4} from 'uuid'
-import { IdeaContextType, IdeaType } from "../types/Idea";
+import { IdeaContextType} from "../types/Idea";
 import { useContext } from "react";
-import IdeaContext from "../context/IdeaContext";
+import {IdeaContext} from "../context/IdeaContext";
 
 
 type Inputs = {
@@ -11,11 +11,8 @@ type Inputs = {
   description: string,
 };
 
-// type IdeaFormProps = {
-//   addIdea: (idea: IdeaType) => void
-// }
-
 const IdeaForm = () => {
+  //@ts-ignore
   const {handleAddIdea } = useContext(IdeaContext) as IdeaContextType;
   const { register, handleSubmit, formState: { errors }, reset, watch } = useForm<Inputs>({
     defaultValues: {
