@@ -3,6 +3,7 @@ import { IdeaContext } from "../context/IdeaContext";
 import { IdeaType, IdeaContextType } from "../types/Idea";
 import IdeaTile from "./IdeaTile";
 import "../styles/Ideas.css";
+import Form from "./Form";
 
 const Ideas = () => {
     //@ts-ignore
@@ -35,9 +36,9 @@ const Ideas = () => {
       <button onClick={() => handleSort()} className="sort-button">
         {sort === "created" ? "Sort Ideas alphbetically" : "Sort ideas by creation date"}
       </button>
-      <div className="idea-tiles-container">
+      <div className="idea-tiles-container" style={{marginTop: '20px'}}>
         {sortedIdeas.map((idea: IdeaType) => (
-          <IdeaTile idea={idea} key={idea.createdAt} />
+          <Form idea={idea} key={idea.id} isAddForm={false}/>
         ))}
       </div>
     </div>

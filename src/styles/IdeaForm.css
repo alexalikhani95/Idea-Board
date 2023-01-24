@@ -18,3 +18,13 @@
 .add-idea-button:hover {
   background-color: lightpink;
 }
+
+.editing-title {
+  background-color: #fff;
+  border: 2px solid blue
+}
+
+.add-input {
+  border: none;
+  font-weight: bold;
+}
