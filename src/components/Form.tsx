@@ -8,7 +8,7 @@ import {IdeaContext} from "../context/IdeaContext";
 
 
 type FormType = {
-  idea: IdeaType
+  idea?: IdeaType
   isAddForm: boolean
 }
 
@@ -22,8 +22,8 @@ const Form = ({idea, isAddForm}: FormType) => {
   const {handleAddIdea } = useContext(IdeaContext) as IdeaContextType;
   const { register, handleSubmit, formState: { errors }, reset, watch } = useForm<Inputs>({
     defaultValues: {
-      title: idea.title,
-      description: idea.description
+      title: idea ? idea.title : '',
+      description: idea?  idea.description: ''
     }
   });
 
