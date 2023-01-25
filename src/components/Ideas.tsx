@@ -38,7 +38,7 @@ const Ideas = () => {
       </button>
       <div className="idea-tiles-container" style={{marginTop: '20px'}}>
         {sortedIdeas.map((idea: IdeaType) => (
-          <Form idea={idea} key={idea.id} isAddForm={false}/>
+          <IdeaTile idea={idea}/>
         ))}
       </div>
     </div>

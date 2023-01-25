@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef, useContext } from "react";
 import { IdeaType } from "../types/Idea";
 import "../styles/IdeaTile.css";
 import { IdeaContext } from "../context/IdeaContext";
+import Form from "./Form";
 
 type IdeaTileProps = {
   idea: IdeaType;
@@ -75,35 +76,7 @@ const IdeaTile = ({ idea}: IdeaTileProps) => {
     <div>
       <div className="idea-tile-container">
         {showUpdatedText && <h3 style={{ color: "blue" }}>Idea updated!</h3>}
-        <div className="idea-tile-section ">
-          <h2
-            style={{ display: !editingTitle ? "flex" : "none" }}
-            onClick={() => setEditingTitle(true)}
-          >
-            {idea.title}
-          </h2>
-          <textarea
-            style={{ display: editingTitle ? "flex" : "none" }}
-            onChange={(e) => setUpdatedTitle(e.target.value)}
-            ref={titleRef}
-            defaultValue={idea.title}
-          />
-        </div>
-
-        <div className="idea-tile-section ">
-          <p
-            style={{ display: !editingDescription ? "flex" : "none" }}
-            onClick={() => setEditingDescription(true)}
-          >
-            {idea.description}
-          </p>
-          <textarea
-            style={{ display: editingDescription ? "flex" : "none" }}
-            onChange={(e) => setUpdatedDescription(e.target.value)}
-            ref={descriptionRef}
-            defaultValue={idea.description}
-          />
-        </div>
+    <Form idea={idea} isAddForm={false}/>
 
         <p>Created at: {idea.createdAt}</p>
         {idea.updatedAt && <p>Updated at: {idea.updatedAt}</p>}
