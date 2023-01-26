@@ -71,10 +71,10 @@ const Form = ({idea, isAddForm}: FormType) => {
             Title
           <input
             type="text"
-            autoFocus={true}
+            autoFocus={isAddForm}
             {...register("title", { required: true })}
             style={{ marginRight: "10px" }}
-            onChange={(e) => updateTitle(e.target.value)}
+            onBlur={(e) => updateTitle(e.target.value)}
           />
           </label>
         </div>
@@ -86,7 +86,7 @@ const Form = ({idea, isAddForm}: FormType) => {
             {...register("description", { required: true })}
             maxLength={140}
             style={{ marginLeft: "10px" }}
-            onChange={(e) => updateDescription(e.target.value)}
+            onBlur={(e) => updateDescription(e.target.value)}
           />
           </label>
         </div>
