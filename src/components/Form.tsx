@@ -19,7 +19,7 @@ type Inputs = {
 
 const Form = ({idea, isAddForm}: FormType) => {
   //@ts-ignore
-  const {handleAddIdea } = useContext(IdeaContext) as IdeaContextType;
+  const {handleAddIdea, handleUpdateIdea } = useContext(IdeaContext) as IdeaContextType;
   const { register, handleSubmit, formState: { errors }, reset, watch } = useForm<Inputs>({
     defaultValues: {
       title: idea ? idea.title : '',
@@ -39,6 +39,28 @@ const Form = ({idea, isAddForm}: FormType) => {
     reset()
   }
 
+  const updateTitle = (newTitle: string) => {
+    if(!idea) {
+      return
+    }
+    handleUpdateIdea({
+      ...idea,
+      title: newTitle,
+     updatedAt: new Date().toLocaleString(),
+    })
+  }
+
+  const updateDescription = (newDescription: string) => {
+    if(!idea) {
+      return
+    }
+    handleUpdateIdea({
+      ...idea,
+      description: newDescription,
+     updatedAt: new Date().toLocaleString(),
+    })
+  }
+
   return (
     <div className="add-idea-card">
      {isAddForm && <h2>Add an idea</h2> }
@@ -52,6 +74,7 @@ const Form = ({idea, isAddForm}: FormType) => {
             autoFocus={true}
             {...register("title", { required: true })}
             style={{ marginRight: "10px" }}
+            onChange={(e) => updateTitle(e.target.value)}
           />
           </label>
         </div>
@@ -63,6 +86,7 @@ const Form = ({idea, isAddForm}: FormType) => {
             {...register("description", { required: true })}
             maxLength={140}
             style={{ marginLeft: "10px" }}
+            onChange={(e) => updateDescription(e.target.value)}
           />
           </label>
         </div>
@@ -74,7 +98,7 @@ const Form = ({idea, isAddForm}: FormType) => {
           Submit
         </button>
         </>
-}
+        }
       </form>
     </div>
   );
