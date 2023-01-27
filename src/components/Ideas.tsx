@@ -3,7 +3,6 @@ import { IdeaContext } from "../context/IdeaContext";
 import { IdeaType, IdeaContextType } from "../types/Idea";
 import IdeaTile from "./IdeaTile";
 import "../styles/Ideas.css";
-import Form from "./Form";
 
 const Ideas = () => {
     //@ts-ignore
