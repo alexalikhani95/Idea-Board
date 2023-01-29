@@ -7,7 +7,6 @@ import {IdeaContext} from "../context/IdeaContext";
 
 type FormType = {
   idea?: IdeaType
-  isAddForm: boolean
 }
 
 type Inputs = {
@@ -15,16 +14,23 @@ type Inputs = {
   description: string,
 };
 
-const IdeaForm = ({idea, isAddForm}: FormType) => {
+const IdeaForm = ({idea}: FormType) => {
   const [showUpdatedText, setShowUpdatedText] = useState(false);
   //@ts-ignore
-  const {handleAddIdea, handleUpdateIdea } = useContext(IdeaContext) as IdeaContextType;
+  const {handleAddIdea, handleUpdateIdea, handleDeleteIdea } = useContext(IdeaContext) as IdeaContextType;
   const { register, handleSubmit, formState: { errors }, reset, watch } = useForm<Inputs>({
     defaultValues: {
       title: idea ? idea.title : '',
       description: idea?  idea.description: ''
     }
   });
+
+  const handleDelete = () => {
+    if(!idea) {
+      return
+    }
+    handleDeleteIdea(idea.id)
+  };
 
 
   const submitForm = ( data: Inputs) => {
@@ -69,8 +75,8 @@ const IdeaForm = ({idea, isAddForm}: FormType) => {
   }, [showUpdatedText]);
 
   return (
-    <div className="add-idea-card">
-     {isAddForm && <h2>Add an idea</h2> }
+    <div className="idea-tile-container">
+     {!idea && <h2>Add an idea</h2> }
       
       <form onSubmit={handleSubmit(submitForm)}>
         <div>
@@ -78,11 +84,11 @@ const IdeaForm = ({idea, isAddForm}: FormType) => {
             Title
           <input
             type="text"
-            autoFocus={isAddForm}
+            autoFocus={!idea}
             {...register("title", { required: true })}
             style={{ marginLeft: "10px" }}
             onBlur={(e) => updateTitle(e.target.value)}
-            className={isAddForm ? '' : 'update-input'}
+            className={!idea ? '' : 'update-input'}
           />
           </label>
         </div>
@@ -95,13 +101,13 @@ const IdeaForm = ({idea, isAddForm}: FormType) => {
             maxLength={140}
             style={{ marginLeft: "10px" }}
             onBlur={(e) => updateDescription(e.target.value)}
-            className={isAddForm ? '' : 'update-input'}
+            className={!idea ? '' : 'update-input'}
           />
           </label>
         </div>
         {showUpdatedText && <h3 style={{ color: "blue" }}>Idea updated!</h3>}
         {errors.description?.type === 'required' && <span style={{ color: "red" }}>A description is required</span>}
-        {isAddForm && 
+        {!idea && 
         <>
         <p>Description Characters remaining: {140 - watch("description").length} / 140</p>
         <button type="submit" className="add-idea-button">
@@ -110,6 +116,11 @@ const IdeaForm = ({idea, isAddForm}: FormType) => {
         </>
         }
       </form>
+      {idea && <p>Created at: {idea.createdAt}</p> }
+        {idea && idea.updatedAt && <p>Updated at: {idea.updatedAt}</p>}
+      {idea && <button className="delete-idea-button" onClick={handleDelete}>
+          Delete
+        </button> }
     </div>
   );
 };

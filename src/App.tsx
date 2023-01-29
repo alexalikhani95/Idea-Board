@@ -10,7 +10,7 @@ const App = () => {
     <IdeaProvider>
       <div className="App">
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-          <IdeaForm isAddForm={true}/>
+          <IdeaForm />
           <Ideas />
         </div>
       </div>

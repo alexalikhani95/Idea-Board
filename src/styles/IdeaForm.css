@@ -1,3 +1,13 @@
+.idea-tile-container {
+  width: 300px;
+  /* border: 1px solid black; */
+  border-radius: 10px;
+  margin: 20px;
+  padding: 20px;
+  box-shadow: 0 29px 52px rgba(0, 0, 0, 0.4), 0 25px 16px rgba(0, 0, 0, 0.2);
+  background-color: lightgrey;
+}
+
 .add-idea-card {
   display: flex;
   flex-direction: column;

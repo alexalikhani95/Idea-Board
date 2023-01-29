@@ -11,6 +11,5 @@ export type IdeaContextType = {
   handleDeleteIdea:(ideaId: string) => void
   handleAddIdea: (idea: IdeaType) => void
   handleUpdateIdea: (idea: IdeaType) => void
-  sort: string;
-  setSort: React.Dispatch<React.SetStateAction<string>>;
+  handleSortAlphabetical: (ideas: IdeaType[]) => void
 }

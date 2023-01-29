@@ -14,7 +14,6 @@ const IdeaProvider = ({ children }: IdeaProviderProps) => {
     IdeasReducer,
     initialState
   );
-  const [sort, setSort] = useState("created");
 
   const handleDeleteIdea = (ideaId: string) => {
     dispatch({
@@ -37,13 +36,21 @@ const IdeaProvider = ({ children }: IdeaProviderProps) => {
     });
   }
 
+  const handleSortAlphabetical = (ideas: IdeaType[]) => {
+    dispatch({
+      type: 'sort_alphabetical',
+      ideas: ideas
+    });
+  }
+
   useEffect(() => {
     localStorage.setItem('ideas', JSON.stringify(ideas));
+    console.log(ideas)
   }, [ideas])
 
 
   return (
-    <IdeaContext.Provider value={{ ideas, sort, setSort, handleDeleteIdea, handleAddIdea, handleUpdateIdea }}>
+    <IdeaContext.Provider value={{ ideas, handleDeleteIdea, handleAddIdea, handleUpdateIdea, handleSortAlphabetical }}>
       {children}
     </IdeaContext.Provider>
   );

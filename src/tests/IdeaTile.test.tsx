@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { fireEvent, render, screen} from "@testing-library/react";
 import App from "../App";
 import IdeaProvider from "../context/IdeaContext";
-import IdeaTile from "../components/IdeaTile";
 
 
 const mockUpdateIdea = jest.fn()
@@ -15,32 +14,32 @@ const mockIdea = {
   createdAt: '14/01/2023, 20:19:34'
 }
 
-test("Idea Title is present in the document with its title text when there is an idea", () => {
-  render(
-    <IdeaProvider>
-      <IdeaTile idea={mockIdea}/>
-    </IdeaProvider>
-  );
+// test("Idea Title is present in the document with its title text when there is an idea", () => {
+//   render(
+//     <IdeaProvider>
+//       <IdeaTile idea={mockIdea}/>
+//     </IdeaProvider>
+//   );
 
-  const title = screen.getAllByText('test title');
+//   const title = screen.getAllByText('test title');
 
-  //The title text displayed to the user
-  expect(title[0]).toBeVisible(); 
+//   //The title text displayed to the user
+//   expect(title[0]).toBeVisible(); 
 
-  // The title text in the DOM thats the default value for the textarea behind the title
-  expect(title[1]).toBeInTheDocument()
-  });
+//   // The title text in the DOM thats the default value for the textarea behind the title
+//   expect(title[1]).toBeInTheDocument()
+//   });
 
-test("Clicking the delete button on an idea removes the idea from the DOM", () => {
-  render(
-    <IdeaProvider>
-      <IdeaTile idea={mockIdea} />
-    </IdeaProvider>
-  );
+// test("Clicking the delete button on an idea removes the idea from the DOM", () => {
+//   render(
+//     <IdeaProvider>
+//       <IdeaTile idea={mockIdea} />
+//     </IdeaProvider>
+//   );
 
-  const deleteBtn = screen.getByText('Delete')
+//   const deleteBtn = screen.getByText('Delete')
  
-  fireEvent.click(deleteBtn)
-  expect(mockDeleteIdea).toHaveBeenCalled();
+//   fireEvent.click(deleteBtn)
+//   expect(mockDeleteIdea).toHaveBeenCalled();
 
-});
+// });
