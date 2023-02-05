@@ -11,5 +11,5 @@ export type IdeaContextType = {
   handleDeleteIdea:(ideaId: string) => void
   handleAddIdea: (idea: IdeaType) => void
   handleUpdateIdea: (idea: IdeaType) => void
-  handleSortAlphabetical: (ideas: IdeaType[]) => void
+  handleSortAlphabetical: () => void
 }

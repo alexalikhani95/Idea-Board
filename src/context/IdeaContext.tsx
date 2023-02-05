@@ -36,16 +36,14 @@ const IdeaProvider = ({ children }: IdeaProviderProps) => {
     });
   }
 
-  const handleSortAlphabetical = (ideas: IdeaType[]) => {
+  const handleSortAlphabetical = () => {
     dispatch({
       type: 'sort_alphabetical',
-      ideas: ideas
     });
   }
 
   useEffect(() => {
     localStorage.setItem('ideas', JSON.stringify(ideas));
-    console.log(ideas)
   }, [ideas])
 
 
