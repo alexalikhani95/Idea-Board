@@ -75,7 +75,7 @@ const IdeaForm = ({idea}: FormType) => {
   }, [showUpdatedText]);
 
   return (
-    <div className="idea-tile-container">
+    <div className="idea-form-container">
      {!idea && <h2>Add an idea</h2> }
       
       <form onSubmit={handleSubmit(submitForm)}>
@@ -86,27 +86,25 @@ const IdeaForm = ({idea}: FormType) => {
             type="text"
             autoFocus={!idea}
             {...register("title", { required: true })}
-            style={{ marginLeft: "10px" }}
             onBlur={(e) => updateTitle(e.target.value)}
-            className={!idea ? '' : 'update-input'}
+            className={idea ? 'update-input' : ''}
           />
           </label>
         </div>
-        {errors.title?.type === 'required' && <span style={{ color: "red" }}>A title is required</span>}
-        <div style={{marginTop: '20px'}}>
+        {errors.title?.type === 'required' && <span className="error-text">A title is required</span>}
+        <div className="description-container">
           <label>
             Description
           <input
             {...register("description", { required: true })}
             maxLength={140}
-            style={{ marginLeft: "10px" }}
             onBlur={(e) => updateDescription(e.target.value)}
-            className={!idea ? '' : 'update-input'}
+            className={idea ? 'update-input' : ''}
           />
           </label>
         </div>
-        {showUpdatedText && <h3 style={{ color: "blue" }}>Idea updated!</h3>}
-        {errors.description?.type === 'required' && <span style={{ color: "red" }}>A description is required</span>}
+        {showUpdatedText && <h3 className="updated-text">Idea updated!</h3>}
+        {errors.description?.type === 'required' && <span className="error-text">A description is required</span>}
         {!idea && 
         <>
         <p>Description Characters remaining: {140 - watch("description").length} / 140</p>

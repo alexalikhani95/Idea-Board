@@ -9,11 +9,11 @@ const Ideas = () => {
     const { ideas, handleSortAlphabetical } = useContext(IdeaContext) as IdeaContextType;
 
   return (
-    <div style={{ marginTop: 20 }}>
+    <div className="ideas-container">
       <button onClick={handleSortAlphabetical} className="sort-button">
         Sort Ideas alphbetically
       </button>
-      <div className="idea-tiles-container" style={{marginTop: '20px'}}>
+      <div className="ideas">
         {ideas.map((idea: IdeaType) => (
           <IdeaForm idea={idea} key={idea.id}/>
         ))}

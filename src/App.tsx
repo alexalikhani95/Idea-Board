@@ -9,7 +9,7 @@ const App = () => {
   return (
     <IdeaProvider>
       <div className="App">
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <div className="idea-board-container">
           <IdeaForm />
           <Ideas />
         </div>

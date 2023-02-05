@@ -1,6 +1,5 @@
-.idea-tile-container {
+.idea-form-container {
   width: 300px;
-  /* border: 1px solid black; */
   border-radius: 10px;
   margin: 20px;
   padding: 20px;
@@ -8,12 +7,12 @@
   background-color: lightgrey;
 }
 
-.add-idea-card {
-  display: flex;
-  flex-direction: column;
-  max-width: 300px;
-  padding: 20px;
-  border: 1px solid grey;
+.idea-form-container input {
+  margin-left: '10px'
+}
+
+.description-container {
+  margin-top: 20px;
 }
 
 .add-idea-button {
@@ -28,13 +27,17 @@
   background-color: lightpink;
 }
 
-.editing-title {
-  background-color: #fff;
-  border: 2px solid blue
-}
-
 .update-input {
   border: none;
   font-weight: bold;
   background-color: inherit;
+  margin-left: 10px;
+}
+
+.error-text {
+  color: red;
+}
+
+.updated-text {
+  color: blue;
 }
