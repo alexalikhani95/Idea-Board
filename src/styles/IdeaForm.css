@@ -8,7 +8,7 @@
 }
 
 .idea-form-container input {
-  margin-left: '10px'
+  margin-left: 10px;
 }
 
 .description-container {
@@ -31,7 +31,6 @@
   border: none;
   font-weight: bold;
   background-color: inherit;
-  margin-left: 10px;
 }
 
 .error-text {

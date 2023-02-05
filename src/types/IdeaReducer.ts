@@ -5,3 +5,4 @@ export type Action =
   | {type: 'delete'; id: string;}
   | {type: 'update'; idea: IdeaType}
   | {type: 'sort_alphabetical'}
+  | {type: 'sort_created'}

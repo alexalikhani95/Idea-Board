@@ -12,4 +12,5 @@ export type IdeaContextType = {
   handleAddIdea: (idea: IdeaType) => void
   handleUpdateIdea: (idea: IdeaType) => void
   handleSortAlphabetical: () => void
+  handleSortCreated: () => void
 }

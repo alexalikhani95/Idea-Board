@@ -42,13 +42,19 @@ const IdeaProvider = ({ children }: IdeaProviderProps) => {
     });
   }
 
+  const handleSortCreated = () => {
+    dispatch({
+      type: 'sort_created',
+    });
+  }
+
   useEffect(() => {
     localStorage.setItem('ideas', JSON.stringify(ideas));
   }, [ideas])
 
 
   return (
-    <IdeaContext.Provider value={{ ideas, handleDeleteIdea, handleAddIdea, handleUpdateIdea, handleSortAlphabetical }}>
+    <IdeaContext.Provider value={{ ideas, handleDeleteIdea, handleAddIdea, handleUpdateIdea, handleSortAlphabetical, handleSortCreated }}>
       {children}
     </IdeaContext.Provider>
   );
