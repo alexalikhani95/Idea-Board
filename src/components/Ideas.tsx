@@ -4,17 +4,16 @@ import { IdeaType, IdeaContextType } from "../types/Idea";
 import "../styles/Ideas.css";
 import IdeaForm from "./IdeaForm";
 
+// write one test that checks that handleSortAlphabetical was called
 const Ideas = () => {
   //@ts-ignore
   const { ideas, handleSortAlphabetical } = useContext(
     IdeaContext
   ) as IdeaContextType;
 
-  const sortIdeas = () => handleSortAlphabetical(ideas);
-
   return (
     <div style={{ marginTop: 20 }}>
-      <button onClick={sortIdeas} className="sort-button">
+      <button onClick={handleSortAlphabetical} className="sort-button">
         Sort Ideas alphbetically
       </button>
       <div className="idea-tiles-container" style={{ marginTop: "20px" }}>

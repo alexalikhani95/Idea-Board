@@ -33,10 +33,9 @@ const IdeaProvider = ({ children }: IdeaProviderProps) => {
     });
   };
 
-  const handleSortAlphabetical = (ideas: IdeaType[]) => {
+  const handleSortAlphabetical = () => {
     dispatch({
       type: "sort_alphabetical",
-      ideas: ideas,
     });
   };
 

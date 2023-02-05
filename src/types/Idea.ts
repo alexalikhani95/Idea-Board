@@ -4,12 +4,12 @@ export type IdeaType = {
   description: string;
   createdAt: string;
   updatedAt?: string;
-}
+};
 
 export type IdeaContextType = {
   ideas: IdeaType[];
-  handleDeleteIdea:(ideaId: string) => void
-  handleAddIdea: (idea: IdeaType) => void
-  handleUpdateIdea: (idea: IdeaType) => void
-  handleSortAlphabetical: (ideas: IdeaType[]) => void
-}
+  handleDeleteIdea: (ideaId: string) => void;
+  handleAddIdea: (idea: IdeaType) => void;
+  handleUpdateIdea: (idea: IdeaType) => void;
+  handleSortAlphabetical: () => void;
+};
