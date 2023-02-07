@@ -45,7 +45,7 @@ const IdeaForm = ({idea}: FormType) => {
   }
 
   const updateTitle = (newTitle: string) => {
-    if(!idea) {
+    if(!idea || newTitle === idea.title) {
       return
     }
     handleUpdateIdea({
@@ -57,7 +57,7 @@ const IdeaForm = ({idea}: FormType) => {
   }
 
   const updateDescription = (newDescription: string) => {
-    if(!idea) {
+    if(!idea || newDescription === idea.description) {
       return
     }
     handleUpdateIdea({
