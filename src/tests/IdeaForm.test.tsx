@@ -1,13 +1,12 @@
-import { fireEvent, render, screen } from "@testing-library/react";
-import IdeaProvider from "../context/IdeaContext";
+import { fireEvent, screen } from "@testing-library/react";
 import IdeaForm from "../components/IdeaForm";
+import customRender from "./utils/test-utils";
 
 
 test("Idea Title is present in the document with its title text when there is an idea", () => {
-  render(
-    <IdeaProvider>
-      <IdeaForm />
-    </IdeaProvider>
+  const initialState = [{  id: '123',  title: 'test title',  description: 'test description',  createdAt: '14/01/2023, 20:19:34'}];
+  customRender(
+      <IdeaForm />, initialState
   );
 
   expect(screen.getByText("Add an idea")).toBeInTheDocument();
@@ -15,10 +14,9 @@ test("Idea Title is present in the document with its title text when there is an
 
 
 test("Text under the description updates to show how many characters of the description are left out of 140", () => {
-  render(
-    <IdeaProvider>
-      <IdeaForm />
-    </IdeaProvider>
+  const initialState = [{  id: '123',  title: 'test title',  description: 'test description',  createdAt: '14/01/2023, 20:19:34'}];
+  customRender(
+      <IdeaForm />, initialState
   );
 
   const descriptionInput = screen.getByLabelText("Description")
