@@ -3,11 +3,11 @@ import React from 'react';
 import IdeaProvider, { IdeaContext } from '../../context/IdeaContext';
 import { IdeaType } from '../../types/Idea';
 
-const customRender = (ui: React.ReactElement, initialState: IdeaType[]) => {
+const customRender = (ui: React.ReactElement, initialState: IdeaType[], handleDeleteIdea: () => void) => {
     const Wrapper = ({ children }: { children: React.ReactNode }) => {
     return (
     <IdeaProvider>
-    <IdeaContext.Provider value={{ ideas: initialState, handleDeleteIdea: jest.fn(), handleAddIdea: jest.fn(), handleUpdateIdea: jest.fn(), handleSortAlphabetical: jest.fn(), handleSortCreated: jest.fn() }}>
+    <IdeaContext.Provider value={{ ideas: initialState, handleDeleteIdea: handleDeleteIdea, handleAddIdea: jest.fn(), handleUpdateIdea: jest.fn(), handleSortAlphabetical: jest.fn(), handleSortCreated: jest.fn() }}>
     {children}
     </IdeaContext.Provider>
     </IdeaProvider>
