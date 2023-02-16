@@ -1,55 +1,76 @@
 import { fireEvent, screen } from "@testing-library/react";
 import IdeaForm from "../components/IdeaForm";
-import customRender from "./utils/test-utils";
+import { render } from "./utils/test-utils";
 
+const dummyIdea1 = {
+  id: "123",
+  title: "test title",
+  description: "test description",
+  createdAt: "14/01/2023, 20:19:34",
+};
 
-test("Idea Title is present in the document with its title text when there is an idea", () => {
-  const initialState = [{  id: '123',  title: 'test title',  description: 'test description',  createdAt: '14/01/2023, 20:19:34'}];
-  const mockDeleteIdea = jest.fn()
-
-  customRender(
-      <IdeaForm />, initialState, mockDeleteIdea
-  );
+test("Add an idea shows when no idea", () => {
+  render(<IdeaForm />);
 
   expect(screen.getByText("Add an idea")).toBeInTheDocument();
 });
 
+test("Add an idea does not show when idea", () => {
+  render(<IdeaForm idea={dummyIdea1} />);
 
-test("Text under the description updates to show how many characters of the description are left out of 140", () => {
-  const initialState = [{  id: '123',  title: 'test title',  description: 'test description',  createdAt: '14/01/2023, 20:19:34'}];
-  const mockDeleteIdea = jest.fn()
-  customRender(
-      <IdeaForm />, initialState, mockDeleteIdea
-  );
-
-  const descriptionInput = screen.getByLabelText("Description")
-  
-  expect(screen.getByText("Description Characters remaining: 140 / 140")).toBeInTheDocument();
-
-  fireEvent.change(descriptionInput, { target: { value: 'abc' } })
-
-  expect(screen.getByText("Description Characters remaining: 137 / 140")).toBeInTheDocument();
+  // if this fails try findByText
+  expect(screen.queryByText("Add an idea")).not.toBeInTheDocument();
 });
 
+test("Text under the description updates to show how many characters of the description are left out of 140", () => {
+  render(<IdeaForm idea={dummyIdea1} />);
+
+  const descriptionInput = screen.getByLabelText("Description");
+
+  expect(
+    screen.getByText("Description Characters remaining: 140 / 140")
+  ).toBeInTheDocument();
+
+  // use userEvent
+  // user.type(descriptionInput, 'abc')
+  // fireEvent for dropdowns
+  fireEvent.change(descriptionInput, { target: { value: "abc" } });
+
+  expect(
+    screen.getByText("Description Characters remaining: 137 / 140")
+  ).toBeInTheDocument();
+});
 
 /// thinks this is the add form, not edit form
 
 test("Delete idea is called", () => {
-  const initialState = [{  id: '123',  title: 'test title',  description: 'test description',  createdAt: '14/01/2023, 20:19:34'}];
-  const mockDeleteIdea = jest.fn()
-  customRender(
-      <IdeaForm idea={{  id: '123',  title: 'test title',  description: 'test description',  createdAt: '14/01/2023, 20:19:34'}}/>, initialState, mockDeleteIdea
-  );
+  const initialState = [
+    {
+      id: "123",
+      title: "test title",
+      description: "test description",
+      createdAt: "14/01/2023, 20:19:34",
+    },
+  ];
+  const mockDeleteIdea = jest.fn();
 
-  const title = screen.getByRole("textbox", { name: /title/i })
+  const idea = {
+    id: "123",
+    title: "test title",
+    description: "test description",
+    createdAt: "14/01/2023, 20:19:34",
+  };
 
-  expect(title).toHaveValue('test title')
+  render(<IdeaForm idea={idea} />, { handleDeleteIdea: mockDeleteIdea });
 
-  const deleteBtn = screen.getByText('Delete')
+  const title = screen.getByRole("textbox", { name: /title/i });
 
-  fireEvent.click(deleteBtn)
+  expect(title).toHaveValue(idea.title);
 
-  expect(mockDeleteIdea).toHaveBeenCalled()
+  const deleteBtn = screen.getByText("Delete");
 
+  // use userEvent
+  fireEvent.click(deleteBtn);
+
+  expect(mockDeleteIdea).toHaveBeenCalled();
 });
-
