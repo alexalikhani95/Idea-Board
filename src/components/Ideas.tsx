@@ -14,12 +14,16 @@ const Ideas = () => {
 
   return (
     <div className="ideas-container">
+      {ideas.length > 1 &&
+      <>
       <button onClick={handleSortAlphabetical} className="sort-button">
         Sort Ideas alphbetically
       </button>
       <button onClick={handleSortCreated} className="sort-button">
         Sort Ideas by creation date
       </button>
+      </>
+      }
       <div className="ideas">
         {ideas.map((idea: IdeaType) => (
           <IdeaForm idea={idea} key={idea.id}/>

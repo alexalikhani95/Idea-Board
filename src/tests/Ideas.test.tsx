@@ -26,7 +26,6 @@ test("No ideas added yet text does not show when is an idea/ideas", () => {
 }
 )
 
-
 test("2 ideas from the context render with their correct default titles", () => {
   const mockIdeas = [
     {  id: '1',  title: 'test title',  description: 'test description',  createdAt: '14/01/2023, 20:19:34'}, 
@@ -38,6 +37,19 @@ test("2 ideas from the context render with their correct default titles", () => 
 
   expect(titles[0]).toHaveValue('test title')
   expect(titles[1]).toHaveValue('test title 2')
+}
+)
+
+test("The sort buttons do not show if there are not at least 2 ideas", () => {
+  const mockIdeas = [
+    {  id: '1',  title: 'test title',  description: 'test description',  createdAt: '14/01/2023, 20:19:34'}];
+
+  render(<Ideas />, {ideas: mockIdeas})
+
+  expect(screen.queryByText('Sort Ideas alphbetically')).not.toBeInTheDocument()
+  expect(screen.queryByText('Sort Ideas by creation date')).not.toBeInTheDocument()
+
+  
 }
 )
 
