@@ -1,20 +1,46 @@
-import { render } from '@testing-library/react';
-import React from 'react';
-import IdeaProvider, { IdeaContext } from '../../context/IdeaContext';
-import { IdeaType } from '../../types/Idea';
+import { render } from "@testing-library/react";
+import React from "react";
 
-const customRender = (ui: React.ReactElement, initialState: IdeaType[], handleDeleteIdea: () => void) => {
-    const Wrapper = ({ children }: { children: React.ReactNode }) => {
-    return (
-    <IdeaProvider>
-    <IdeaContext.Provider value={{ ideas: initialState, handleDeleteIdea: handleDeleteIdea, handleAddIdea: jest.fn(), handleUpdateIdea: jest.fn(), handleSortAlphabetical: jest.fn(), handleSortCreated: jest.fn() }}>
-    {children}
+import { IdeaContext } from "../../context/IdeaContext";
+import { IdeaContextType } from "../../types/Idea";
+
+const Wrapper = ({
+  children,
+  customContext,
+}: {
+  children: React.ReactNode;
+  customContext?: Partial<IdeaContextType>;
+}) => {
+  return (
+    <IdeaContext.Provider
+      value={{
+        ideas: [],
+        handleDeleteIdea: () => null,
+        handleAddIdea: () => null,
+        handleUpdateIdea: () => null,
+        handleSortAlphabetical: () => null,
+        handleSortCreated: () => null,
+        ...customContext,
+      }}
+    >
+      {children}
     </IdeaContext.Provider>
-    </IdeaProvider>
-    );
-    };
-    
-    return { ...render(ui, { wrapper: Wrapper }) };
-    };
-  
-  export default customRender;
+  );
+};
+
+const customRender = (
+  ui: React.ReactElement,
+  customContext?: Partial<IdeaContextType>
+) => {
+  return {
+    ...render(ui, {
+      wrapper: () => <Wrapper customContext={customContext}>{ui}</Wrapper>,
+    }),
+  };
+};
+
+// re-export everything
+export * from "@testing-library/react";
+
+// override render method
+export { customRender as render };

@@ -1,15 +1,14 @@
 
 import Ideas from "../components/Ideas";
-import customRender from "./utils/test-utils";
+import { render } from "./utils/test-utils";
 import { fireEvent, screen } from "@testing-library/react";
 
 
 
 test("Idea displays with a default title value from the idea in context and will update when changed", () => {
-  const initialState = [{  id: '123',  title: 'test title',  description: 'test description',  createdAt: '14/01/2023, 20:19:34'}];
-  const mockDeleteIdea = jest.fn()
+  const mockIdeas = [{  id: '123',  title: 'test title',  description: 'test description',  createdAt: '14/01/2023, 20:19:34'}];
 
-  customRender(<Ideas />, initialState, mockDeleteIdea)
+  render(<Ideas />, {ideas: mockIdeas})
 
   expect(screen.getByRole("textbox", { name: /title/i })).toHaveValue(
     "test title"
@@ -28,13 +27,11 @@ test("Idea displays with a default title value from the idea in context and will
 )
 
 test("2 ideas from the context render with their correct default titles", () => {
-  const initialState = [
+  const mockIdeas = [
     {  id: '1',  title: 'test title',  description: 'test description',  createdAt: '14/01/2023, 20:19:34'}, 
     {  id: '2',  title: 'test title 2',  description: 'test description 2',  createdAt: '15/01/2023, 15:19:34'}];
 
-    const mockDeleteIdea = jest.fn()
-
-  customRender(<Ideas />, initialState, mockDeleteIdea)
+  render(<Ideas />, {ideas: mockIdeas})
 
   const titles = screen.getAllByRole("textbox", { name: /title/i })
 
