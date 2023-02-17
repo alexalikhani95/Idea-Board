@@ -19,6 +19,12 @@ const IdeasReducer = (ideas: IdeaType[], action: Action) => {
     case 'delete': {
       return ideas.filter(idea => idea.id !== action.id);
     }
+    case 'sort_alphabetical': {
+      return [...ideas].sort((a: IdeaType, b: IdeaType) => a.title.localeCompare(b.title))
+    }
+    case 'sort_created': {
+      return [...ideas].sort((a: IdeaType, b: IdeaType) => a.createdAt.localeCompare(b.createdAt));
+    }
   }
 }
 

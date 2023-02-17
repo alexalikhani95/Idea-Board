@@ -1,7 +1,12 @@
-.idea-tiles-container {
+.ideas-container {
+  margin-top: 20px;
+}
+
+.ideas {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  margin-top: 20px;
 }
 
 .sort-button {
@@ -10,6 +15,7 @@
   cursor: pointer;
   background-color: lightgreen;
   font-weight: bold;
+  margin: 10px;
 }
 
 .sort-button:hover {

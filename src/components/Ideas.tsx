@@ -1,47 +1,24 @@
-import React from "react";
+import React, { useContext} from "react";
 import { IdeaContext } from "../context/IdeaContext";
 import { IdeaType, IdeaContextType } from "../types/Idea";
-import IdeaTile from "./IdeaTile";
 import "../styles/Ideas.css";
+import IdeaForm from "./IdeaForm";
 
-type IdeasProps = {
-  deleteIdea: (ideaId: string) => void
-  ideas: IdeaType[]
-  updateIdea: (idea: IdeaType) => void
-}
-
-const Ideas = ({deleteIdea, ideas, updateIdea}: IdeasProps) => {
-  const {sort, setSort } = React.useContext(IdeaContext) as IdeaContextType;
-
-  const sortIdeas = () => {
-    if (sort === "alphabet") {
-      return ideas.sort((a: IdeaType, b: IdeaType) => a.title.localeCompare(b.title));
-    }
-    if (sort === "created") {
-      return ideas.sort((a: IdeaType, b: IdeaType) => a.createdAt.localeCompare(b.createdAt));
-    }
-  };
-
-  const handleSort = () => {
-    setSort(sort === "created" ? "alphabet" : "created");
-    localStorage.setItem("sortValue", JSON.stringify(sort === "created" ? "alphabet" : "created"));
-  };
-
-  const sortedIdeas = sortIdeas();
-
-  if (!sortedIdeas) {
-    // To avoid the error ''sortedIdeas' is possibly 'undefined'when mapping sortedIdeas
-    return <p>Loading...</p>;
-  }
+const Ideas = () => {
+    //@ts-ignore
+    const { ideas, handleSortAlphabetical, handleSortCreated } = useContext(IdeaContext) as IdeaContextType;
 
   return (
-    <div style={{ marginTop: 20 }}>
-      <button onClick={() => handleSort()} className="sort-button">
-        {sort === "created" ? "Sort Ideas alphbetically" : "Sort ideas by creation date"}
+    <div className="ideas-container">
+      <button onClick={handleSortAlphabetical} className="sort-button">
+        Sort Ideas alphbetically
       </button>
-      <div className="idea-tiles-container">
-        {sortedIdeas.map((idea: IdeaType) => (
-          <IdeaTile idea={idea} key={idea.createdAt} deleteIdea={deleteIdea} updateIdea={updateIdea}/>
+      <button onClick={handleSortCreated} className="sort-button">
+        Sort Ideas by creation date
+      </button>
+      <div className="ideas">
+        {ideas.map((idea: IdeaType) => (
+          <IdeaForm idea={idea} key={idea.id}/>
         ))}
       </div>
     </div>
