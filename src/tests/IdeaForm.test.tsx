@@ -1,4 +1,5 @@
-import { fireEvent, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import IdeaForm from "../components/IdeaForm";
 import { render } from "./utils/test-utils";
 
@@ -8,6 +9,8 @@ const mockIdea = {
   description: "test description",
   createdAt: "14/01/2023, 20:19:34"
 }
+
+const user = userEvent.setup()
 
 
 test("Add an idea text shows when the Form has no idea passed into it", () => {
@@ -29,7 +32,7 @@ test("Add an idea text does not show when the Form has an idea passed into it", 
 });
 
 
-test("Text under the description updates to show how many characters of the description are left out of 140", () => {
+test("Text under the description updates to show how many characters of the description are left out of 140", async () => {
   render(
       <IdeaForm />
   );
@@ -38,13 +41,13 @@ test("Text under the description updates to show how many characters of the desc
   
   expect(screen.getByText("Description Characters remaining: 140 / 140")).toBeInTheDocument();
 
-  fireEvent.change(descriptionInput, { target: { value: 'abc' } })
+  await user.type(descriptionInput, 'abc')
 
   expect(screen.getByText("Description Characters remaining: 137 / 140")).toBeInTheDocument();
 });
 
 
-test("Delete idea is called", () => {
+test("Delete idea is called", async () => {
 
   const mockDeleteIdea = jest.fn()
 
@@ -58,7 +61,7 @@ test("Delete idea is called", () => {
 
   const deleteBtn = screen.getByText('Delete')
 
-  fireEvent.click(deleteBtn)
+  await user.click(deleteBtn)
 
   expect(mockDeleteIdea).toHaveBeenCalled()
 

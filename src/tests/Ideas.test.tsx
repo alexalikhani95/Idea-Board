@@ -1,11 +1,13 @@
 
 import Ideas from "../components/Ideas";
 import { render } from "./utils/test-utils";
-import { fireEvent, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 
+const user = userEvent.setup()
 
-test("Idea displays with a default title value from the idea in context and will update when changed", () => {
+test("Idea displays with a default title value from the idea in context and will update when changed", async () => {
   const mockIdeas = [{  id: '123',  title: 'test title',  description: 'test description',  createdAt: '14/01/2023, 20:19:34'}];
 
   render(<Ideas />, {ideas: mockIdeas})
@@ -14,17 +16,14 @@ test("Idea displays with a default title value from the idea in context and will
     "test title"
   );
   
-  fireEvent.input(screen.getByRole("textbox", { name: /title/i }), {
-    target: {
-      value: "updated test title"
-    }
-  });
+  await user.type(screen.getByRole("textbox", { name: /title/i }), '123');
 
   expect(screen.getByRole("textbox", { name: /title/i })).toHaveValue(
-    "updated test title"
+    "test title123"
   );
 }
 )
+
 
 test("2 ideas from the context render with their correct default titles", () => {
   const mockIdeas = [
