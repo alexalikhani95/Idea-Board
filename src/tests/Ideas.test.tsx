@@ -2,6 +2,9 @@
 import Ideas from "../components/Ideas";
 import { render } from "./utils/test-utils";
 import { screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+
+const user = userEvent.setup()
 
 
 test("2 ideas from the context render with their correct default titles", () => {
@@ -15,6 +18,31 @@ test("2 ideas from the context render with their correct default titles", () => 
 
   expect(titles[0]).toHaveValue('test title')
   expect(titles[1]).toHaveValue('test title 2')
+}
+)
+
+test("Clicking on both the sort buttons calls their respective functions", async () => {
+  const mockIdeas = [
+    {  id: '1',  title: 'test title',  description: 'test description',  createdAt: '14/01/2023, 20:19:34'}, 
+    {  id: '2',  title: 'test title 2',  description: 'test description 2',  createdAt: '15/01/2023, 15:19:34'}];
+
+    const mockSortAlphabetical = jest.fn()
+
+    const mockSortCreated = jest.fn()
+
+  render(<Ideas />, {ideas: mockIdeas, handleSortAlphabetical: mockSortAlphabetical, handleSortCreated: mockSortCreated})
+
+  const sortAlphabeticalBtn = screen.getByText('Sort Ideas alphbetically')
+  const sortCreatedBtn = screen.getByText('Sort Ideas by creation date')
+
+  await user.click(sortAlphabeticalBtn)
+
+  expect(mockSortAlphabetical).toHaveBeenCalled()
+
+  await user.click(sortCreatedBtn)
+
+  expect(mockSortCreated).toHaveBeenCalled()
+
 }
 )
 

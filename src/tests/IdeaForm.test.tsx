@@ -68,7 +68,6 @@ test("Delete idea is called", async () => {
 });
 
 test("Idea displays with a default title value from the idea in context and will update when changed", async () => {
-  const mockIdea = {  id: '123',  title: 'test title',  description: 'test description',  createdAt: '14/01/2023, 20:19:34'}
 
   render(<IdeaForm idea={mockIdea}/>)
 
