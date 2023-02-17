@@ -8,6 +8,10 @@ const Ideas = () => {
     //@ts-ignore
     const { ideas, handleSortAlphabetical, handleSortCreated } = useContext(IdeaContext) as IdeaContextType;
 
+  if(!ideas.length) {
+    return <p>No Ideas added yet...</p>
+  }
+
   return (
     <div className="ideas-container">
       <button onClick={handleSortAlphabetical} className="sort-button">

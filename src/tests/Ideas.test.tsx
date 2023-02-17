@@ -6,6 +6,26 @@ import userEvent from "@testing-library/user-event";
 
 const user = userEvent.setup()
 
+test("No ideas added yet text shows when there are no ideas", () => {
+
+  render(<Ideas />)
+
+  expect(screen.getByText('No Ideas added yet...')).toBeInTheDocument()
+}
+)
+
+test("No ideas added yet text does not show when is an idea/ideas", () => {
+  const mockIdeas = [
+    {  id: '1',  title: 'test title',  description: 'test description',  createdAt: '14/01/2023, 20:19:34'}, 
+    {  id: '2',  title: 'test title 2',  description: 'test description 2',  createdAt: '15/01/2023, 15:19:34'}];
+
+  render(<Ideas />, {ideas: mockIdeas})
+
+  expect(screen.queryByText('No Ideas added yet...')).not.toBeInTheDocument()
+
+}
+)
+
 
 test("2 ideas from the context render with their correct default titles", () => {
   const mockIdeas = [
