@@ -63,7 +63,7 @@ test("Delete idea is called", async () => {
 
   await user.click(deleteBtn)
 
-  expect(mockDeleteIdea).toHaveBeenCalled()
+  expect(mockDeleteIdea).toHaveBeenCalledWith(mockIdea.id)
 
 });
 
