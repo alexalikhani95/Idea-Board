@@ -1,8 +1,8 @@
-import { render } from "@testing-library/react";
-import React from "react";
+import { render } from '@testing-library/react';
+import React from 'react';
 
-import { IdeaContext } from "../../context/IdeaContext";
-import { IdeaContextType } from "../../types/Idea";
+import { IdeaContext } from '../../context/IdeaContext';
+import { IdeaContextType } from '../../types';
 
 const Wrapper = ({
   children,
@@ -40,7 +40,7 @@ const customRender = (
 };
 
 // re-export everything
-export * from "@testing-library/react";
+export * from '@testing-library/react';
 
 // override render method
 export { customRender as render };
