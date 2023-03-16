@@ -1,60 +1,66 @@
-import React, { createContext, useEffect, useReducer, useState } from "react";
-import IdeasReducer from "../reducers/ideasReducer";
-import { IdeaType, IdeaContextType } from "../types/Idea";
+import React, { createContext, useEffect, useReducer } from 'react';
+import IdeasReducer from '../reducers/ideasReducer';
+import { IdeaType, IdeaContextType } from '../types';
 
 type IdeaProviderProps = {
-  children: React.ReactNode
-}
+  children: React.ReactNode;
+};
 
 export const IdeaContext = createContext<IdeaContextType | null>(null);
 
 const IdeaProvider = ({ children }: IdeaProviderProps) => {
-  const initialState = JSON.parse(localStorage.getItem("ideas") || "[]")
-  const [ideas, dispatch] = useReducer(
-    IdeasReducer,
-    initialState
-  );
+  const initialState = JSON.parse(localStorage.getItem('ideas') || '[]');
+  const [ideas, dispatch] = useReducer(IdeasReducer, initialState);
 
   const handleDeleteIdea = (ideaId: string) => {
     dispatch({
       type: 'delete',
-      id: ideaId
+      id: ideaId,
     });
-  }
+  };
 
   const handleAddIdea = (idea: IdeaType) => {
     dispatch({
       type: 'added',
-      idea: idea
+      idea: idea,
     });
-  }
+  };
 
   const handleUpdateIdea = (idea: IdeaType) => {
     dispatch({
       type: 'update',
-      idea: idea
+      idea: idea,
     });
-  }
+  };
 
   const handleSortAlphabetical = () => {
     dispatch({
       type: 'sort_alphabetical',
     });
-  }
+  };
 
   const handleSortCreated = () => {
     dispatch({
       type: 'sort_created',
     });
-  }
+  };
 
   useEffect(() => {
     localStorage.setItem('ideas', JSON.stringify(ideas));
-  }, [ideas])
-
+  }, [ideas]);
+  // TODO: eslint react hooks package
 
   return (
-    <IdeaContext.Provider value={{ ideas, handleDeleteIdea, handleAddIdea, handleUpdateIdea, handleSortAlphabetical, handleSortCreated }}>
+    <IdeaContext.Provider
+      value={{
+        ideas,
+        handleDeleteIdea,
+        handleAddIdea,
+        handleUpdateIdea,
+        handleSortAlphabetical,
+        handleSortCreated,
+      }}
+    >
       {children}
     </IdeaContext.Provider>
   );

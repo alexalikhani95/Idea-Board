@@ -1,6 +1,11 @@
-import { IdeaType } from "../types/Idea";
-import { Action } from "../types/IdeaReducer";
+import { IdeaType } from '../types';
 
+type Action =
+  | { type: 'added'; idea: IdeaType }
+  | { type: 'delete'; id: string }
+  | { type: 'update'; idea: IdeaType }
+  | { type: 'sort_alphabetical' }
+  | { type: 'sort_created' };
 
 const IdeasReducer = (ideas: IdeaType[], action: Action) => {
   switch (action.type) {
@@ -8,7 +13,7 @@ const IdeasReducer = (ideas: IdeaType[], action: Action) => {
       return [...ideas, action.idea];
     }
     case 'update': {
-      return ideas.map(idea => {
+      return ideas.map((idea) => {
         if (idea.id === action.idea.id) {
           return action.idea;
         } else {
@@ -17,15 +22,19 @@ const IdeasReducer = (ideas: IdeaType[], action: Action) => {
       });
     }
     case 'delete': {
-      return ideas.filter(idea => idea.id !== action.id);
+      return ideas.filter((idea) => idea.id !== action.id);
     }
     case 'sort_alphabetical': {
-      return [...ideas].sort((a: IdeaType, b: IdeaType) => a.title.localeCompare(b.title))
+      return [...ideas].sort((a: IdeaType, b: IdeaType) =>
+        a.title.localeCompare(b.title)
+      );
     }
     case 'sort_created': {
-      return [...ideas].sort((a: IdeaType, b: IdeaType) => a.createdAt.localeCompare(b.createdAt));
+      return [...ideas].sort((a: IdeaType, b: IdeaType) =>
+        a.createdAt.localeCompare(b.createdAt)
+      );
     }
   }
-}
+};
 
-export default IdeasReducer
+export default IdeasReducer;
