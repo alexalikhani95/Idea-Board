@@ -6,9 +6,9 @@ Build an idea board that allows a user to create new ideas, edit existing ideas 
 
 ### Scripts
 
-`npm install` to install dependencies
-`npm start` to run local development server
-`npm test` to run tests
-`npm run build ` Builds the app for production to the `build` folder.
+- `npm install` to install dependencies
+- `npm start` to run local development server
+- `npm test` to run tests
+- `npm run build ` Builds the app for production to the `build` folder.
 
 **Deployed App**: https://magical-pithivier-d0a7ea.netlify.app/
