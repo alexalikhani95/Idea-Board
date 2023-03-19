@@ -19,10 +19,7 @@ const Ideas = () => {
             Sort Ideas alphbetically
           </button>
           <button onClick={handleSortCreated} className="sort-button">
-            Sort Ideas by creation date Sort Ideas by creation date Sort Ideas by creation date Sort Ideas by creation
-            date Sort Ideas by creation date Sort Ideas by creation date Sort Ideas by creation date Sort Ideas by
-            creation date Sort Ideas by creation date Sort Ideas by creation date Sort Ideas by creation date Sort Ideas
-            by creation date Sort Ideas by creation date Sort Ideas by creation date
+            Sort Ideas by creation date
           </button>
         </>
       )}
