@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { IdeaContext } from '../context/IdeaContext';
 import { IdeaType, IdeaContextType } from '../types/Idea';
 import '../styles/Ideas.css';
