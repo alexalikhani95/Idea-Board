@@ -16,21 +16,18 @@ type Inputs = {
 
 const IdeaForm = ({ idea }: Props) => {
   const [showUpdatedText, setShowUpdatedText] = useState(false);
-  //@ts-ignore
-  const { handleAddIdea, handleUpdateIdea, handleDeleteIdea } = useContext(
-    IdeaContext
-  ) as IdeaContextType;
+  const { handleAddIdea, handleUpdateIdea, handleDeleteIdea } = useContext(IdeaContext) as IdeaContextType;
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
-    watch,
+    watch
   } = useForm<Inputs>({
     defaultValues: {
       title: idea?.title || '',
-      description: idea?.description || '',
-    },
+      description: idea?.description || ''
+    }
   });
 
   const submitForm = ({ title, description }: Inputs) => {
@@ -38,7 +35,7 @@ const IdeaForm = ({ idea }: Props) => {
       id: uuidv4(),
       title,
       description,
-      createdAt: new Date().toLocaleString(),
+      createdAt: new Date().toLocaleString()
     });
 
     reset();
@@ -51,7 +48,7 @@ const IdeaForm = ({ idea }: Props) => {
     handleUpdateIdea({
       ...idea,
       title: newTitle,
-      updatedAt: new Date().toLocaleString(),
+      updatedAt: new Date().toLocaleString()
     });
     setShowUpdatedText(true);
   };
@@ -63,7 +60,7 @@ const IdeaForm = ({ idea }: Props) => {
     handleUpdateIdea({
       ...idea,
       description: newDescription,
-      updatedAt: new Date().toLocaleString(),
+      updatedAt: new Date().toLocaleString()
     });
     setShowUpdatedText(true);
   };
@@ -91,9 +88,7 @@ const IdeaForm = ({ idea }: Props) => {
             />
           </label>
         </div>
-        {errors.title?.type === 'required' && (
-          <span className="error-text">A title is required</span>
-        )}
+        {errors.title?.type === 'required' && <span className="error-text">A title is required</span>}
         <div className="description-container">
           <label>
             Description
@@ -106,15 +101,10 @@ const IdeaForm = ({ idea }: Props) => {
           </label>
         </div>
         {showUpdatedText && <h3 className="updated-text">Idea updated!</h3>}
-        {errors.description?.type === 'required' && (
-          <span className="error-text">A description is required</span>
-        )}
+        {errors.description?.type === 'required' && <span className="error-text">A description is required</span>}
         {!idea && (
           <>
-            <p>
-              Description Characters remaining:{' '}
-              {140 - watch('description').length} / 140
-            </p>
+            <p>Description Characters remaining: {140 - watch('description').length} / 140</p>
             <button type="submit" className="add-idea-button">
               Submit
             </button>
@@ -124,10 +114,7 @@ const IdeaForm = ({ idea }: Props) => {
       {idea && <p>Created at: {idea.createdAt}</p>}
       {idea && idea.updatedAt && <p>Updated at: {idea.updatedAt}</p>}
       {idea && (
-        <button
-          className="delete-idea-button"
-          onClick={() => handleDeleteIdea(idea.id)}
-        >
+        <button className="delete-idea-button" onClick={() => handleDeleteIdea(idea.id)}>
           Delete
         </button>
       )}

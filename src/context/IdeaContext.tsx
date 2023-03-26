@@ -15,33 +15,33 @@ const IdeaProvider = ({ children }: IdeaProviderProps) => {
   const handleDeleteIdea = (ideaId: string) => {
     dispatch({
       type: 'delete',
-      id: ideaId,
+      id: ideaId
     });
   };
 
   const handleAddIdea = (idea: IdeaType) => {
     dispatch({
       type: 'added',
-      idea: idea,
+      idea: idea
     });
   };
 
   const handleUpdateIdea = (idea: IdeaType) => {
     dispatch({
       type: 'update',
-      idea: idea,
+      idea: idea
     });
   };
 
   const handleSortAlphabetical = () => {
     dispatch({
-      type: 'sort_alphabetical',
+      type: 'sort_alphabetical'
     });
   };
 
   const handleSortCreated = () => {
     dispatch({
-      type: 'sort_created',
+      type: 'sort_created'
     });
   };
 
@@ -57,7 +57,7 @@ const IdeaProvider = ({ children }: IdeaProviderProps) => {
         handleAddIdea,
         handleUpdateIdea,
         handleSortAlphabetical,
-        handleSortCreated,
+        handleSortCreated
       }}
     >
       {children}
